@@ -1,5 +1,6 @@
 package com.meinil.sparion.common.configuration;
 
+import com.meinil.sparion.common.utils.CipherUtils;
 import com.meinil.sparion.common.utils.JwtUtils;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -29,22 +30,8 @@ public class JwtConfiguration {
         if (StringUtils.hasText(jwtProperties.getSecret())) {
             bean.setSecret(jwtProperties.getSecret());
         } else {
-            bean.setSecret(generateSecret(128));
+            bean.setSecret(CipherUtils.generateSecret(128));
         }
         return bean;
-    }
-
-    /**
-     * 生成秘钥
-     * @param length 秘钥的长度
-     * @return 秘钥
-     */
-    private static String generateSecret(int length) {
-        Random random = new Random();
-        StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < length; i++) {
-            sb.append((char)(random.nextInt(94) + 33));
-        }
-        return sb.toString();
     }
 }

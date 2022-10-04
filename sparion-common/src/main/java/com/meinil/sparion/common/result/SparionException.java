@@ -16,9 +16,6 @@ public class SparionException extends RuntimeException{
     @ApiModelProperty("异常状态码")
     private Integer code;
 
-    @ApiModelProperty("异常信息")
-    private String detailMessage;
-
     public SparionException(String message) {
         super(message);
         this.code = 400;
@@ -30,14 +27,5 @@ public class SparionException extends RuntimeException{
 
     public void setCode(Integer code) {
         this.code = code;
-    }
-
-    @Override
-    public String getMessage() {
-        return detailMessage;
-    }
-
-    public void setDetailMessage(String detailMessage) {
-        this.detailMessage = detailMessage;
     }
 }

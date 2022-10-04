@@ -20,10 +20,10 @@ public class ResponseAdviceException {
     }
 
     @ExceptionHandler(value = SparionException.class)
-    public R<Object> handle(SparionException e) {
+    public R<Void> handle(SparionException e) {
         log.error("", e);
         e.printStackTrace();
-        return R.error(e.getMessage())
+        return R.<Void>error(e.getMessage())
                 .code(e.getCode());
     }
 }

@@ -54,7 +54,7 @@ public class SecurityConfig {
                     // 登录,注册接口放行(只能匿名访问)
                     .antMatchers("/user/login", "/user/register").anonymous()
                     // 测试接口放行(登录未登录都放行)
-                    .antMatchers("/demo/hello").permitAll()
+                    .antMatchers("/**").permitAll()
                     // 除上面外的所有请求全部需要鉴权认证
                     .anyRequest().authenticated()
                     .and()

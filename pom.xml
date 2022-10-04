@@ -12,7 +12,7 @@
         </developer>
     </developers>
 
-    <groupId>com.meinil.sparion</groupId>
+    <groupId>com.meinil</groupId>
     <artifactId>sparion</artifactId>
     <packaging>pom</packaging>
     <version>0.0.1</version>
@@ -26,6 +26,7 @@
 
     <modules>
         <module>sparion-common</module>
+        <module>sparion-bot</module>
     </modules>
 
     <properties>
@@ -36,7 +37,8 @@
         <fastjson2.version>2.0.14</fastjson2.version>
         <jjwt.version>0.9.1</jjwt.version>
         <swagger.version>2.9.2</swagger.version>
-        <guava.version>31.1-jre</guava.version>
+        <druid.version>1.2.12</druid.version>
+        <mirai.version>2.12.3</mirai.version>
     </properties>
 
     <dependencyManagement>
@@ -52,6 +54,7 @@
                 <artifactId>springfox-swagger2</artifactId>
                 <version>${swagger.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>swagger-bootstrap-ui</artifactId>
@@ -71,15 +74,15 @@
             </dependency>
 
             <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>${guava.version}</version>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid-spring-boot-starter</artifactId>
-                <version>1.2.12</version>
+                <groupId>net.mamoe</groupId>
+                <artifactId>mirai-core-api-jvm</artifactId>
+                <version>${mirai.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
