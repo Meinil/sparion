@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.meinil.sparion.common.mapper.PermissionMapper">
+<select id="queryPermsByUserId" resultType="com.meinil.sparion.common.entity.Permission">
+    SELECT DISTINCT sp.*
+    FROM sys_user_role sur
+    LEFT JOIN sys_role_perms srp ON sur.role_id=srp.role_id
+    LEFT JOIN sys_perms sp ON srp.perms_id=sp.id
+    WHERE sur.user_id=#{userId} AND sur.deleted="0" AND srp.deleted="0" AND sp.deleted="0"
+</select>
+</mapper>
