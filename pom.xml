@@ -36,7 +36,7 @@
         <mybatis-plus.version>3.5.2</mybatis-plus.version>
         <fastjson2.version>2.0.14</fastjson2.version>
         <jjwt.version>0.9.1</jjwt.version>
-        <swagger.version>2.9.2</swagger.version>
+        <knife4j.version>2.0.9</knife4j.version>
         <druid.version>1.2.12</druid.version>
         <mirai.version>2.12.3</mirai.version>
     </properties>
@@ -49,16 +49,11 @@
                 <version>${mybatis-plus.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger2</artifactId>
-                <version>${swagger.version}</version>
-            </dependency>
-
+            <!--swagger-->
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
-                <artifactId>swagger-bootstrap-ui</artifactId>
-                <version>1.9.6</version>
+                <artifactId>knife4j-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
             </dependency>
 
             <dependency>
@@ -86,13 +81,4 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 </project>

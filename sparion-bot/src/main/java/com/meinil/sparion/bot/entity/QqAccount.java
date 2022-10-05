@@ -2,6 +2,7 @@ package com.meinil.sparion.bot.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.meinil.sparion.common.entity.BaseEntity;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,6 +15,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @TableName("bot_qq_account")
 @EqualsAndHashCode(callSuper = true)
+@ApiModel("qq账号实体类")
 public class QqAccount extends BaseEntity {
     @ApiModelProperty("qq号")
     private Long qq;

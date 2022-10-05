@@ -1,12 +1,12 @@
 package com.meinil.sparion.common.utils;
 
-import com.google.common.base.Strings;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
@@ -47,7 +47,7 @@ public class JwtUtils {
      * 判断token是否存在与有效
      */
     public boolean checkToken(String token) {
-        if(Strings.isNullOrEmpty(token)) {
+        if(!StringUtils.hasText(token)) {
             return false;
         }
         try {
@@ -65,7 +65,7 @@ public class JwtUtils {
     public boolean checkToken(HttpServletRequest request) {
         try {
             String token = request.getHeader("Authorization");
-            if(Strings.isNullOrEmpty(token)) {
+            if(!StringUtils.hasText(token)) {
                 return false;
             }
             Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
@@ -84,7 +84,7 @@ public class JwtUtils {
     }
 
     public String getUserIdByToken(String token) {
-        if(Strings.isNullOrEmpty(token)) {
+        if(!StringUtils.hasText(token)) {
             return "";
         }
         Jws<Claims> claimsJws = Jwts.parser().setSigningKey(secret).parseClaimsJws(token);

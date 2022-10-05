@@ -55,7 +55,11 @@ public class QqAccountServiceImpl extends ServiceImpl<QqAccountMapper, QqAccount
 
         QqAccount account = new QqAccount();
         BeanUtils.copyProperties(createVo, account);
+
+        // 密码秘钥
         account.setSecretKey(secretKey);
+        // 设置账户为已启用
+        account.setStatus(1);
         if (baseMapper.insert(account) > 0) {
             return account.getId();
         }

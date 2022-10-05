@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @description
  */
 @RestController
-@RequestMapping("/bot")
+@RequestMapping("/qq")
 public class QqAccountController {
 
     @Autowired
