@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: sparion-auth
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+  config:
+    import: nacos:sparion-common.properties,nacos:sparion-redis.properties,nacos:sparion-system-datasource.properties
+server:
+  port: 11000

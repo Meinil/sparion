@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: sparion-gateway
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+    gateway:
+      routes:
+        - id: sparion-auth
+          uri: lb://${sparion.applications.sparion-auth}
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - AddRequestHeadersIfNotPresent=${security.allow-header}:${security.allow-header-value}
+            - RewritePath=/api/auth/(?<segment>.*), /auth/$\{segment}
+        - id: sparion-module-system
+          uri: lb://${sparion.applications.sparion-module-system}
+          predicates:
+            - Path=/api/system/**
+          filters:
+            - RewritePath=/api/system/(?<segment>.*), /system/$\{segment}
+  config:
+    import: nacos:sparion-common.properties
+server:
+  port: 10000

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.meinil</groupId>
+        <artifactId>sparion</artifactId>
+        <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>sparion-common</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>sparion-common-bom</module>
+        <module>sparion-common-core</module>
+        <module>sparion-common-cache</module>
+        <module>sparion-common-web</module>
+        <module>sparion-common-nacos</module>
+        <module>sparion-common-feign</module>
+        <module>sparion-common-mybatis</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+</project>
