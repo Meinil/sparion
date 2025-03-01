@@ -18,6 +18,7 @@ spring:
           predicates:
             - Path=/api/system/**
           filters:
+            - AddRequestHeadersIfNotPresent=${security.allow-header}:${security.allow-header-value}
             - RewritePath=/api/system/(?<segment>.*), /system/$\{segment}
   config:
     import: nacos:sparion-common.properties

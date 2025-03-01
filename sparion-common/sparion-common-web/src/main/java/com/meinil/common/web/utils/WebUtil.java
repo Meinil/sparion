@@ -51,7 +51,7 @@ public class WebUtil {
      * 获取请求的上下文对象
      * @return 请求上下文对象
      */
-    public static HttpServletRequest getServletRequest() {
+    public static HttpServletRequest getRequest() {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         return attributes.getRequest();
     }

@@ -13,14 +13,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Component
 public class WebConfig implements WebMvcConfigurer {
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+
         registry.addInterceptor(new GatewayInterceptor())
                 .addPathPatterns("/**")
                 .excludePathPatterns("/feign/**", "/error");
 
         registry.addInterceptor(new TokenInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/auth/login", "/auth/register", "/feign/system/user", "/feign/system/register", "/error");
+                .excludePathPatterns("/auth/login", "/auth/register", "/auth/captcha", "/feign/system/user", "/feign/system/register", "/error");
     }
 }

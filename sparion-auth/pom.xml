@@ -19,6 +19,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.github.penggle</groupId>
+            <artifactId>kaptcha</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.meinil</groupId>
             <artifactId>sparion-common-nacos</artifactId>
         </dependency>

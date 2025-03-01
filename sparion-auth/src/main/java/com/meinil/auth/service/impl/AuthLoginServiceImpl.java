@@ -8,6 +8,7 @@ import com.meinil.auth.service.IAuthLoginService;
 import com.meinil.common.cache.constants.CacheConstants;
 import com.meinil.common.cache.utils.CacheUtil;
 import com.meinil.common.core.domain.R;
+import com.meinil.common.core.utlis.BCryptUtil;
 import com.meinil.common.web.properties.JwtProperties;
 import com.meinil.common.web.utils.JwtUtil;
 import com.meinil.system.api.dto.RegisterDTO;
@@ -53,7 +54,7 @@ public class AuthLoginServiceImpl implements IAuthLoginService {
         }
 
         // 1. 校验密码
-        if (!loginBody.getPassword().equals(userInfo.getPassword())) {
+        if (!BCryptUtil.checkPassword(loginBody.getPassword(), userInfo.getPassword())) {
             throw new RuntimeException("密码错误");
         }
 
@@ -75,6 +76,7 @@ public class AuthLoginServiceImpl implements IAuthLoginService {
     @Override
     public void register(RegisterBody registerBody) {
         RegisterDTO registerDTO = authLoginConvert.registerBodyToRegisterDTO(registerBody);
+        registerDTO.setPassword(BCryptUtil.hashPassword(registerDTO.getPassword()));
         R<Boolean> result = userFeignClient.registerUserInfo(registerDTO);
         if (result.isFail()) {
             throw new RuntimeException("注册失败: " + result.getMsg());
