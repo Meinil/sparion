@@ -1,9 +1,10 @@
 package com.meinil.auth.convert;
 
+import com.meinil.auth.domain.vo.LoginVO;
 import com.meinil.auth.form.RegisterBody;
-import com.meinil.common.web.domain.UserInfo;
 import com.meinil.system.api.dto.RegisterDTO;
-import com.meinil.system.api.model.LoginUser;
+import com.meinil.common.core.domain.LoginUser;
+import com.meinil.common.core.domain.UserInfo;
 import org.mapstruct.Mapper;
 
 /**
@@ -14,7 +15,9 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface AuthLoginConvert {
 
-    UserInfo loginUserToUserInfo(LoginUser loginUser);
+    LoginUser userInfoTologinUser(UserInfo userInfo);
 
     RegisterDTO registerBodyToRegisterDTO(RegisterBody registerBody);
+
+    LoginVO loginUserToLoginVO(LoginUser loginUser);
 }

@@ -1,6 +1,6 @@
 package com.meinil.common.web.utils;
 
-import com.meinil.common.web.domain.UserInfo;
+import com.meinil.common.core.domain.LoginUser;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -12,31 +12,31 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  */
 public class WebUtil {
 
-    private static final ThreadLocal<UserInfo> USER_INFO_THREAD_LOCAL = new ThreadLocal<>();
+    private static final ThreadLocal<LoginUser> LOGIN_USER_THREAD_LOCAL = new ThreadLocal<>();
 
     private WebUtil() {}
 
     /**
      * 保存用户信息
-     * @param userInfo 用户信息
+     * @param loginUser 用户信息
      */
-    public static void setUserInfo(UserInfo userInfo) {
-        WebUtil.USER_INFO_THREAD_LOCAL.set(userInfo);
+    public static void setLoginUser(LoginUser loginUser) {
+        WebUtil.LOGIN_USER_THREAD_LOCAL.set(loginUser);
     }
 
     /**
      * 删除用户信息
      */
-    public static void removeUserInfo() {
-        WebUtil.USER_INFO_THREAD_LOCAL.remove();
+    public static void removeLoginUser() {
+        WebUtil.LOGIN_USER_THREAD_LOCAL.remove();
     }
 
     /**
      * 获取当前登录用户的信息
      * @return 用户信息
      */
-    public static UserInfo getUserInfo() {
-        return WebUtil.USER_INFO_THREAD_LOCAL.get();
+    public static LoginUser getLoginUser() {
+        return WebUtil.LOGIN_USER_THREAD_LOCAL.get();
     }
 
     /**
@@ -44,7 +44,31 @@ public class WebUtil {
      * @return 用户id
      */
     public static Long getUserId() {
-        return getUserInfo().getUserId();
+        return getLoginUser().getUserId();
+    }
+
+    /**
+     * 获取当前用户的授权令牌
+     * @return 用户id
+     */
+    public static String getAccessToken() {
+        return getLoginUser().getAccessToken();
+    }
+
+    /**
+     * 判断当前登录人是否是超级管理员
+     * @return
+     */
+    public static boolean isSuperAdmin(Long userId) {
+        return userId.equals(1L);
+    }
+
+    /**
+     * 判断当前登录人是否是超级管理员
+     * @return
+     */
+    public static boolean isSuperAdmin() {
+        return isSuperAdmin(getUserId());
     }
 
     /**

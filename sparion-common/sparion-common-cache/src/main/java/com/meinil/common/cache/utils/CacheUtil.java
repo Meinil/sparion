@@ -46,6 +46,17 @@ public class CacheUtil implements ApplicationContextAware {
      *
      * @param key 缓存的键值
      * @param value 缓存的值
+     * @param timeout 时间(分钟)
+     */
+    public static <T> void setCacheObject(final String key, final T value, final Long timeout) {
+        setCacheObject(key, value, timeout, TimeUnit.MINUTES);
+    }
+
+    /**
+     * 缓存基本的对象，Integer、String、实体类等
+     *
+     * @param key 缓存的键值
+     * @param value 缓存的值
      * @param timeout 时间
      * @param timeUnit 时间颗粒度
      */

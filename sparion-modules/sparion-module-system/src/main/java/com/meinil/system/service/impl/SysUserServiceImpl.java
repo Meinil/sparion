@@ -1,7 +1,7 @@
 package com.meinil.system.service.impl;
 
 import com.meinil.system.api.dto.RegisterDTO;
-import com.meinil.system.api.model.LoginUser;
+import com.meinil.common.core.domain.UserInfo;
 import com.meinil.system.convert.SysUserConvert;
 import com.meinil.system.domain.entity.SysUser;
 import com.meinil.system.mapper.SysUserMapper;
@@ -28,7 +28,7 @@ public class SysUserServiceImpl implements ISysUserService {
     }
 
     @Override
-    public LoginUser getLoginUser(String username) {
+    public UserInfo getLoginUser(String username) {
         SysUser user = userMapper.selectUserByUserName(username);
         if (Objects.isNull(user)) {
             throw new RuntimeException("用户不存在");

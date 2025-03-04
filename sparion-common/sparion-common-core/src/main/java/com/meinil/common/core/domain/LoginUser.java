@@ -1,17 +1,18 @@
-package com.meinil.auth.domain.vo;
+package com.meinil.common.core.domain;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * @author Meinil
- * @date 2025/2/22
- * @description 登录返回信息
+ * @date 2025/2/23
+ * @description
  */
-public class LoginVO {
+public class LoginUser {
+
     /**
-     * 用户名
+     * 用户id
      */
-    private String username;
+    private Long userId;
 
     /**
      * 昵称
@@ -19,14 +20,19 @@ public class LoginVO {
     private String nickname;
 
     /**
-     * 角色编码
+     * 用户名
      */
-    private List<String> roles;
+    private String username;
 
     /**
-     * 权限
+     * 角色权限
      */
-    private List<String> menus;
+    private Set<String> roles;
+
+    /**
+     * 菜单权限
+     */
+    private Set<String> menus;
 
     /**
      * 授权令牌
@@ -34,26 +40,26 @@ public class LoginVO {
     private String accessToken;
 
     /**
+     * 授权令牌 过期时间
+     */
+    private Long expireIn;
+
+    /**
      * 刷新令牌
      */
     private String refreshToken;
 
     /**
-     * 授权令牌 access_token 的有效期
-     */
-    private Long expireIn;
-
-    /**
-     * 刷新令牌 refresh_token 的有效期
+     * 刷新令牌 过期时间
      */
     private Long refreshExpireIn;
 
-    public String getUsername() {
-        return username;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getNickname() {
@@ -64,19 +70,27 @@ public class LoginVO {
         this.nickname = nickname;
     }
 
-    public List<String> getRoles() {
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Set<String> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<String> roles) {
+    public void setRoles(Set<String> roles) {
         this.roles = roles;
     }
 
-    public List<String> getMenus() {
+    public Set<String> getMenus() {
         return menus;
     }
 
-    public void setMenus(List<String> menus) {
+    public void setMenus(Set<String> menus) {
         this.menus = menus;
     }
 

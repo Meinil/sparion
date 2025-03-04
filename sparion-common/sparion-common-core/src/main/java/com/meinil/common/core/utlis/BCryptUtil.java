@@ -34,4 +34,9 @@ public class BCryptUtil {
     public static boolean checkPassword(String password, String hashed) {
         return BCrypt.checkpw(password, hashed);
     }
+
+    public static void main(String[] args) {
+        String hashed = hashPassword("admin123");
+        System.out.println(hashed);
+    }
 }

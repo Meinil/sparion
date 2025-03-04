@@ -20,12 +20,12 @@
     <dependencies>
         <dependency>
             <groupId>com.meinil</groupId>
-            <artifactId>sparion-api-system</artifactId>
+            <artifactId>sparion-common-feign</artifactId>
         </dependency>
 
         <dependency>
             <groupId>com.meinil</groupId>
-            <artifactId>sparion-common-feign</artifactId>
+            <artifactId>sparion-api-system</artifactId>
         </dependency>
     </dependencies>
 </project>

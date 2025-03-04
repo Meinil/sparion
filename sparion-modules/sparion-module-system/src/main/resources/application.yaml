@@ -7,4 +7,4 @@ spring:
   config:
     import: nacos:sparion-module-system.properties,nacos:sparion-redis.properties,nacos:sparion-common.properties
 server:
-  port: 12000
+  port: 13000

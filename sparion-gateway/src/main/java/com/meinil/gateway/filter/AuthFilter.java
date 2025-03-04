@@ -14,14 +14,14 @@ import reactor.core.publisher.Mono;
  * @date 2025/2/24
  * @description 授权验证
  */
-@Component
+//@Component
 public class AuthFilter implements GlobalFilter, Ordered {
 
     private final static Logger log = LoggerFactory.getLogger(AuthFilter.class);
 
     @Override
     public int getOrder() {
-        return -1;
+        return -200;
     }
 
     @Override

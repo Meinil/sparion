@@ -1,7 +1,7 @@
 package com.meinil.system.service;
 
 import com.meinil.system.api.dto.RegisterDTO;
-import com.meinil.system.api.model.LoginUser;
+import com.meinil.common.core.domain.UserInfo;
 
 /**
  * @author Meinil
@@ -10,7 +10,7 @@ import com.meinil.system.api.model.LoginUser;
  */
 public interface ISysUserService {
 
-    LoginUser getLoginUser(String username);
+    UserInfo getLoginUser(String username);
 
     Boolean register(RegisterDTO registerDTO);
 }

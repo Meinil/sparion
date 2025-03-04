@@ -2,6 +2,9 @@ package com.meinil.auth.controller;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.meinil.auth.domain.vo.CaptchaVO;
+import com.meinil.auth.properties.AccountProperties;
+import com.meinil.common.cache.constants.CacheConstants;
+import com.meinil.common.cache.utils.CacheUtil;
 import com.meinil.common.core.domain.R;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +18,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Meinil
@@ -29,8 +33,11 @@ public class CaptchaController {
 
     private final DefaultKaptcha kaptchaProducer;
 
-    public CaptchaController(DefaultKaptcha kaptchaProducer) {
+    private final AccountProperties accountProperties;
+
+    public CaptchaController(DefaultKaptcha kaptchaProducer, AccountProperties accountProperties) {
         this.kaptchaProducer = kaptchaProducer;
+        this.accountProperties = accountProperties;
     }
 
     /**
@@ -55,6 +62,9 @@ public class CaptchaController {
 
             captchaVO.setUuid(UUID.randomUUID().toString());
             captchaVO.setImg(base64Image);
+
+            // 缓存到redis
+            CacheUtil.setCacheObject(CacheConstants.CAPTCHA_CODE_KEY + captchaVO.getUuid(), capText, accountProperties.getCaptchaExpiration());
         }
 
         return R.ok(captchaVO);

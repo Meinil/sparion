@@ -9,5 +9,18 @@ public class CacheConstants {
 
     private CacheConstants() {}
 
-    public final static String CACHE_LOGIN_USER_PREFIX = "login_users:";
+    /**
+     * 用户登录信息 redis key
+     */
+    public final static String LOGIN_USER_KEY = "login_users:";
+
+    /**
+     * 登录账户密码错误次数 redis key
+     */
+    public static final String PWD_ERR_CNT_KEY = "pwd_err_cnt:";
+
+    /**
+     * 验证码 redis key
+     */
+    public static final String CAPTCHA_CODE_KEY = "captcha_codes:";
 }

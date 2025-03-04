@@ -23,4 +23,8 @@ spring:
   config:
     import: nacos:sparion-common.properties
 server:
-  port: 10000
+  port: 11000
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.http.server.reactive: DEBUG

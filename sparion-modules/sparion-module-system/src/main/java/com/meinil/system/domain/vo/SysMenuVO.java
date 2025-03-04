@@ -1,13 +1,19 @@
-package com.meinil.system.domain.entity;
+package com.meinil.system.domain.vo;
 
-import com.meinil.common.core.domain.BaseEntity;
+import java.util.List;
 
 /**
  * @author Meinil
- * @date 2025/2/27
- * @description 菜单实体
+ * @date 2025/3/2
+ * @description
  */
-public class SysMenu extends BaseEntity {
+public class SysMenuVO {
+
+    /**
+     * id
+     */
+    private Long id;
+
     /** 菜单名称 */
     private String menuName;
 
@@ -57,6 +63,19 @@ public class SysMenu extends BaseEntity {
      * 备注
      */
     private String remark;
+
+    /**
+     * 子菜单
+     */
+    private List<SysMenuVO> children;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getMenuName() {
         return menuName;
@@ -184,5 +203,13 @@ public class SysMenu extends BaseEntity {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public List<SysMenuVO> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<SysMenuVO> children) {
+        this.children = children;
     }
 }

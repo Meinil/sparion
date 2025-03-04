@@ -1,6 +1,8 @@
 package com.meinil.common.core.utlis;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Meinil
@@ -17,5 +19,13 @@ public class CollectionUtil {
 
     public static boolean isNotEmpty(Collection<?> collection) {
         return !isEmpty(collection);
+    }
+
+    /**
+     * 返回一个空List
+     * @return
+     */
+    public static <T> List<T> emptyList() {
+        return Collections.emptyList();
     }
 }

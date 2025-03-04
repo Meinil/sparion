@@ -25,17 +25,17 @@
 
         <dependency>
             <groupId>com.meinil</groupId>
-            <artifactId>sparion-api-system</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.meinil</groupId>
             <artifactId>sparion-common-web</artifactId>
         </dependency>
 
         <dependency>
             <groupId>com.meinil</groupId>
             <artifactId>sparion-common-mybatis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.meinil</groupId>
+            <artifactId>sparion-api-system</artifactId>
         </dependency>
     </dependencies>
 

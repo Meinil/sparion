@@ -5,7 +5,6 @@ import com.meinil.auth.form.PasswordLoginBody;
 import com.meinil.auth.form.RegisterBody;
 import com.meinil.auth.service.IAuthLoginService;
 import com.meinil.common.core.domain.R;
-import com.meinil.common.web.utils.WebUtil;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,7 +42,7 @@ public class TokenController {
      */
     @DeleteMapping("/logout")
     public R<Void> logout() {
-        Long userId = WebUtil.getUserId();
+        authLoginService.logout();
         return R.ok();
     }
 

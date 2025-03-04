@@ -1,10 +1,6 @@
 package com.meinil.common.web.properties;
 
-import com.meinil.common.core.utlis.StringUtil;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-
-import java.security.SecureRandom;
-import java.util.Objects;
 
 /**
  * @author Meinil

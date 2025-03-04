@@ -2,8 +2,8 @@ package com.meinil.common.web.interceptor;
 
 import com.meinil.common.cache.constants.CacheConstants;
 import com.meinil.common.cache.utils.CacheUtil;
+import com.meinil.common.core.domain.LoginUser;
 import com.meinil.common.web.constants.WebConstants;
-import com.meinil.common.web.domain.UserInfo;
 import com.meinil.common.web.utils.JwtUtil;
 import com.meinil.common.web.utils.WebUtil;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,10 +33,10 @@ public class TokenInterceptor implements HandlerInterceptor {
             Long userId = JwtUtil.getClaims(token, WebConstants.JWT_CLAIM_USER_ID, Long.class);
 
             // 从Redis中获取用户信息
-            UserInfo userInfo = CacheUtil.getCacheObject(CacheConstants.CACHE_LOGIN_USER_PREFIX + userId + ":" + token);
+            LoginUser loginUser = CacheUtil.getCacheObject(CacheConstants.LOGIN_USER_KEY + userId);
 
             // 保存用户信息到请求属性中
-            WebUtil.setUserInfo(userInfo);
+            WebUtil.setLoginUser(loginUser);
             return true;
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -45,6 +45,6 @@ public class TokenInterceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        WebUtil.removeUserInfo();
+        WebUtil.removeLoginUser();
     }
 }

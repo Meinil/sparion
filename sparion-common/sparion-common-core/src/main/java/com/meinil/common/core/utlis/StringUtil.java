@@ -10,4 +10,8 @@ import org.apache.commons.lang3.StringUtils;
 public class StringUtil extends StringUtils {
 
     private StringUtil() {}
+
+    public static boolean notEquals(final CharSequence cs1, final CharSequence cs2) {
+        return !equals(cs1, cs2);
+    }
 }

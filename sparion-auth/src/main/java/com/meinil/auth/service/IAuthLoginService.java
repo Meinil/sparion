@@ -23,4 +23,9 @@ public interface IAuthLoginService {
      * @param registerBody 注册实体
      */
     void register(RegisterBody registerBody);
+
+    /**
+     * 登出
+     */
+    void logout();
 }
