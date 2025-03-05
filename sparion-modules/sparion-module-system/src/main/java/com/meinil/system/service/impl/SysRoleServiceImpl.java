@@ -25,7 +25,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
 
     @Override
     public Set<String> selectRolePermissionByUserId(Long userId) {
-        List<SysRole> perms = baseMapper.selectRolesByUserId(userId);
+        List<SysRole> perms = baseMapper.selectRoleByUserId(userId);
         Set<String> permsSet = new HashSet<>();
         for (SysRole perm : perms) {
             permsSet.add(perm.getRoleCode());

@@ -20,6 +20,16 @@ public class SysRole extends BaseEntity {
     private String roleName;
 
     /**
+     * 角色状态（0正常 1停用）
+     */
+    private String status;
+
+    /**
+     * 角色排序
+     */
+    private Integer roleSort;
+
+    /**
      * 备注
      */
     private String remark;
@@ -38,6 +48,22 @@ public class SysRole extends BaseEntity {
 
     public void setRoleName(String roleName) {
         this.roleName = roleName;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Integer getRoleSort() {
+        return roleSort;
+    }
+
+    public void setRoleSort(Integer roleSort) {
+        this.roleSort = roleSort;
     }
 
     public String getRemark() {

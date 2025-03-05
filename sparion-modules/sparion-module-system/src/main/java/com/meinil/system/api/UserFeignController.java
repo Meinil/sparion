@@ -2,6 +2,7 @@ package com.meinil.system.api;
 
 import com.meinil.common.core.domain.R;
 import com.meinil.common.core.domain.UserInfo;
+import com.meinil.common.web.exception.SparionException;
 import com.meinil.system.api.dto.RegisterDTO;
 import com.meinil.system.service.ISysPermissionService;
 import com.meinil.system.service.ISysUserService;
@@ -42,18 +43,21 @@ public class UserFeignController {
     public R<UserInfo> getUserInfo(@RequestParam("username") String username) {
         UserInfo userInfo = userService.getLoginUser(username);
 
-        ExecutorService virtualThread = Executors.newVirtualThreadPerTaskExecutor();
-        // 查询角色权限
-        CompletableFuture<Void> task1 = CompletableFuture.runAsync(() -> {
-            userInfo.setRoles(permissionService.getRolePermission(userInfo.getUserId()));
-        }, virtualThread);
+        try (ExecutorService virtualThread = Executors.newVirtualThreadPerTaskExecutor()) {
+            // 查询角色权限
+            CompletableFuture<Void> task1 = CompletableFuture.runAsync(() -> {
+                userInfo.setRoles(permissionService.getRolePermission(userInfo.getUserId()));
+            }, virtualThread);
+            // 查询菜单权限
+            CompletableFuture<Void> task2 = CompletableFuture.runAsync(() -> {
+                userInfo.setMenus(permissionService.getMenuPermission(userInfo.getUserId()));
+            }, virtualThread);
 
-        // 查询菜单权限
-        CompletableFuture<Void> task2 = CompletableFuture.runAsync(() -> {
-            userInfo.setMenus(permissionService.getMenuPermission(userInfo.getUserId()));
-        }, virtualThread);
+            CompletableFuture.allOf(task1, task2).get();
+        } catch (Exception e) {
+            throw new SparionException(e);
+        }
 
-        CompletableFuture.allOf(task1, task2);
         return R.ok(userInfo);
     }
 

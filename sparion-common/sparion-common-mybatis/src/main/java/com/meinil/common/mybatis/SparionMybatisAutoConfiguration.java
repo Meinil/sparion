@@ -1,6 +1,6 @@
 package com.meinil.common.mybatis;
 
-import com.meinil.common.mybatis.Interceptor.SnowflakeIdInterceptor;
+import com.meinil.common.mybatis.Interceptor.AutoFillInterceptor;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -23,7 +23,7 @@ public class SparionMybatisAutoConfiguration {
         factoryBean.setDataSource(dataSource);
 
         // 添加自定义插件
-        Interceptor[] plugins = { new SnowflakeIdInterceptor() };
+        Interceptor[] plugins = { new AutoFillInterceptor() };
         factoryBean.setPlugins(plugins);
 
         return factoryBean.getObject();

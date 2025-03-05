@@ -15,19 +15,32 @@ public class BaseEntity {
      */
     private Long id;
 
-    /** 创建者 */
-    private String createBy;
+    /**
+     * 创建者
+     */
+    private Long createBy;
 
-    /** 创建时间 */
+    /**
+     * 创建时间
+     */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
-    /** 更新者 */
-    private String updateBy;
+    /**
+     * 更新者
+     */
+    private Long updateBy;
 
-    /** 更新时间 */
+    /**
+     * 更新时间
+     */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
+
+    /**
+     * 删除标志（0代表存在 1代表删除）
+     */
+    private String delFlag;
 
     public Long getId() {
         return id;
@@ -37,11 +50,11 @@ public class BaseEntity {
         this.id = id;
     }
 
-    public String getCreateBy() {
+    public Long getCreateBy() {
         return createBy;
     }
 
-    public void setCreateBy(String createBy) {
+    public void setCreateBy(Long createBy) {
         this.createBy = createBy;
     }
 
@@ -53,11 +66,11 @@ public class BaseEntity {
         this.createTime = createTime;
     }
 
-    public String getUpdateBy() {
+    public Long getUpdateBy() {
         return updateBy;
     }
 
-    public void setUpdateBy(String updateBy) {
+    public void setUpdateBy(Long updateBy) {
         this.updateBy = updateBy;
     }
 
@@ -67,5 +80,13 @@ public class BaseEntity {
 
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(String delFlag) {
+        this.delFlag = delFlag;
     }
 }

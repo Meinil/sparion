@@ -34,6 +34,10 @@ public class SparionException extends RuntimeException implements Serializable {
     public SparionException() {
     }
 
+    public SparionException(Throwable cause) {
+        super(cause);
+    }
+
     public SparionException(String message) {
         this.message = message;
     }

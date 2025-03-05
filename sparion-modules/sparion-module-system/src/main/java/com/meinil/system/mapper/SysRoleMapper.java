@@ -15,5 +15,5 @@ public interface SysRoleMapper {
      * @param userId 用户id
      * @return
      */
-    List<SysRole> selectRolesByUserId(Long userId);
+    List<SysRole> selectRoleByUserId(Long userId);
 }

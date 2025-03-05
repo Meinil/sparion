@@ -25,6 +25,11 @@ public class SysUser extends BaseEntity {
     private String password;
 
     /**
+     * 帐号状态（0正常 1停用）
+     */
+    private String status;
+
+    /**
      * 邮箱
      */
     private String email;
@@ -33,6 +38,7 @@ public class SysUser extends BaseEntity {
      * 手机号
      */
     private String phone;
+
 
     public String getNickname() {
         return nickname;
@@ -56,6 +62,14 @@ public class SysUser extends BaseEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getEmail() {

@@ -39,7 +39,8 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
         if (WebUtil.isSuperAdmin(userId)) {
             roles.add("SUPER_ADMIN");
         } else {
-            roles.addAll(roleService.selectRolePermissionByUserId(userId));
+            Set<String> temp = roleService.selectRolePermissionByUserId(userId);
+            roles.addAll(temp);
         }
         return roles;
     }

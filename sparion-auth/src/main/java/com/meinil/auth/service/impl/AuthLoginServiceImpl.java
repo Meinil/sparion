@@ -65,16 +65,7 @@ public class AuthLoginServiceImpl implements IAuthLoginService {
         }
 
         // 1. 校验验证码
-        if (AuthConstants.ENABLE_CAPTCHA_1.equals(accountProperties.getEnableCaptcha())) {
-            String cacheCaptcha = CacheUtil.getCacheObject(CacheConstants.CAPTCHA_CODE_KEY + loginBody.getUuid());
-            if (StringUtil.isBlank(cacheCaptcha)) {
-                throw new SparionException("验证码不存在或已过期");
-            }
-
-            if (StringUtil.notEquals(cacheCaptcha, loginBody.getCode())) {
-                throw new SparionException("验证码不正确");
-            }
-        }
+        validCaptcha(loginBody.getUuid(), loginBody.getCode());
 
         // 2. 校验密码
         Integer retryCount = CacheUtil.getCacheObject(CacheConstants.PWD_ERR_CNT_KEY + userInfo.getUserId());
@@ -110,11 +101,33 @@ public class AuthLoginServiceImpl implements IAuthLoginService {
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public void register(RegisterBody registerBody) {
+        // 1. 校验验证码
+        validCaptcha(registerBody.getUuid(), registerBody.getCode());
+
+        // 2. 注册
         RegisterDTO registerDTO = authLoginConvert.registerBodyToRegisterDTO(registerBody);
         registerDTO.setPassword(BCryptUtil.hashPassword(registerDTO.getPassword()));
         R<Boolean> result = userFeignClient.registerUserInfo(registerDTO);
         if (result.isFail()) {
             throw new SparionException("注册失败: " + result.getMsg());
+        }
+    }
+
+    /**
+     * 校验验证码
+     * @param uuid 验证码唯一uuid
+     * @param code 前端传入的验证码
+     */
+    private void validCaptcha(String uuid, String code) {
+        if (AuthConstants.ENABLE_CAPTCHA_1.equals(accountProperties.getEnableCaptcha())) {
+            String cacheCaptcha = CacheUtil.getCacheObject(CacheConstants.CAPTCHA_CODE_KEY + uuid);
+            if (StringUtil.isBlank(cacheCaptcha)) {
+                throw new SparionException("验证码不存在或已过期");
+            }
+
+            if (StringUtil.notEquals(cacheCaptcha, code)) {
+                throw new SparionException("验证码不正确");
+            }
         }
     }
 
