@@ -128,6 +128,9 @@ public class AuthLoginServiceImpl implements IAuthLoginService {
             if (StringUtil.notEquals(cacheCaptcha, code)) {
                 throw new SparionException("验证码不正确");
             }
+
+            // 校验成功，清除验证码
+            CacheUtil.deleteObject(CacheConstants.CAPTCHA_CODE_KEY + uuid);
         }
     }
 

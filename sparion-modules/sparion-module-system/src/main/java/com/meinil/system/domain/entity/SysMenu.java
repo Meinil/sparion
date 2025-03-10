@@ -1,12 +1,14 @@
 package com.meinil.system.domain.entity;
 
-import com.meinil.common.core.domain.BaseEntity;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.meinil.common.mybatis.domain.BaseEntity;
 
 /**
  * @author Meinil
  * @date 2025/2/27
  * @description 菜单实体
  */
+@TableName("sys_menu")
 public class SysMenu extends BaseEntity {
     /** 菜单名称 */
     private String menuName;

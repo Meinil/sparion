@@ -18,11 +18,42 @@
         <result property="remark"             column="remark"                />
     </resultMap>
 
+    <sql id="BaseField">
+        id, role_code, role_name, role_sort, status, remark, can_del, create_by, create_time, update_time, del_flag
+    </sql>
+
     <select id="selectRoleByUserId" parameterType="Long" resultMap="SysRoleResult">
         select distinct r.id, r.role_name, r.role_code, r.role_sort, r.status, r.del_flag, r.create_time, r.remark
         from sys_role r
         left join sys_user_role ur on ur.role_id = r.id
         left join sys_user u on u.id = ur.user_id
         WHERE r.del_flag = '0' and ur.user_id = #{userId}
+    </select>
+
+    <select id="selectList" resultMap="SysRoleResult">
+        SELECT
+            <include refid="BaseField" />
+        FROM
+            sys_role
+        WHERE
+            del_flag = 0
+            <if test='query.roleCode != null and query.roleCode != ""'>
+                AND role_code LIKE CONCAT('%', #{query.roleCode}, '%')
+            </if>
+            <if test='query.roleName != null and query.roleName != ""'>
+                AND role_name LIKE CONCAT('%', #{query.roleName}, '%')
+            </if>
+        ORDER BY role_sort ASC
+    </select>
+    <select id="selectRoleByRoleCode" resultType="com.meinil.system.domain.entity.SysRole">
+        SELECT
+            <include refid="BaseField" />
+        FROM
+            sys_role
+        WHERE
+            del_flag = 0
+            <if test='roleCode != null and roleCode != ""'>
+               AND role_code = #{roleCode}
+            </if>
     </select>
 </mapper>

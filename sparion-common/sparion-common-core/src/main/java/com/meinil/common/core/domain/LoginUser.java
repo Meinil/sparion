@@ -32,7 +32,7 @@ public class LoginUser {
     /**
      * 菜单权限
      */
-    private Set<String> menus;
+    private Set<String> permissions;
 
     /**
      * 授权令牌
@@ -86,12 +86,12 @@ public class LoginUser {
         this.roles = roles;
     }
 
-    public Set<String> getMenus() {
-        return menus;
+    public Set<String> getPermissions() {
+        return permissions;
     }
 
-    public void setMenus(Set<String> menus) {
-        this.menus = menus;
+    public void setPermissions(Set<String> permissions) {
+        this.permissions = permissions;
     }
 
     public String getAccessToken() {
@@ -102,20 +102,20 @@ public class LoginUser {
         this.accessToken = accessToken;
     }
 
-    public String getRefreshToken() {
-        return refreshToken;
-    }
-
-    public void setRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
-    }
-
     public Long getExpireIn() {
         return expireIn;
     }
 
     public void setExpireIn(Long expireIn) {
         this.expireIn = expireIn;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 
     public Long getRefreshExpireIn() {

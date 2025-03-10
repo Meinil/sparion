@@ -13,10 +13,20 @@ public class CollectionUtil {
 
     private CollectionUtil() {}
 
+    /**
+     * 集合是否为空
+     * @param collection 集合
+     * @return 结果
+     */
     public static boolean isEmpty(Collection<?> collection) {
         return collection == null || collection.isEmpty();
     }
 
+    /**
+     * 集合是否不为空
+     * @param collection 集合
+     * @return 结果
+     */
     public static boolean isNotEmpty(Collection<?> collection) {
         return !isEmpty(collection);
     }

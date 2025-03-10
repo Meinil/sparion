@@ -1,15 +1,19 @@
-package com.meinil.system.domain.entity;
+package com.meinil.system.domain.vo;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.meinil.common.mybatis.domain.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * @author Meinil
- * @date 2025/2/27
- * @description 角色实体
+ * @date 2025/3/9
+ * @description
  */
-@TableName("sys_role")
-public class SysRole extends BaseEntity {
+public class SysRoleVO {
+
+    /**
+     * 角色id
+     */
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private Long id;
 
     /**
      * 角色编码
@@ -40,6 +44,14 @@ public class SysRole extends BaseEntity {
      * 能否删除 1-可以删除 0-不能删除
      */
     private String canDel;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getRoleCode() {
         return roleCode;

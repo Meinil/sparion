@@ -50,7 +50,7 @@ public class UserFeignController {
             }, virtualThread);
             // 查询菜单权限
             CompletableFuture<Void> task2 = CompletableFuture.runAsync(() -> {
-                userInfo.setMenus(permissionService.getMenuPermission(userInfo.getUserId()));
+                userInfo.setPermissions(permissionService.getMenuPermission(userInfo.getUserId()));
             }, virtualThread);
 
             CompletableFuture.allOf(task1, task2).get();

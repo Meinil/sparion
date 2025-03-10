@@ -3,8 +3,11 @@ package com.meinil.system.convert;
 import com.meinil.system.api.dto.RegisterDTO;
 import com.meinil.common.core.domain.UserInfo;
 import com.meinil.system.domain.entity.SysUser;
+import com.meinil.system.domain.vo.SysUserVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+
+import java.util.List;
 
 /**
  * @author Meinil
@@ -18,4 +21,6 @@ public interface SysUserConvert {
     UserInfo sysUserToLoginUser(SysUser user);
 
     SysUser registerDTOToSysUser(RegisterDTO registerDTO);
+
+    List<SysUserVO> sysUserToSysUserVO(List<SysUser> sysUsers);
 }

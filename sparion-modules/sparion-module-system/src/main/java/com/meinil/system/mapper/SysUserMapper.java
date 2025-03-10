@@ -1,5 +1,7 @@
 package com.meinil.system.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.meinil.system.domain.bo.SysUserBO;
 import com.meinil.system.domain.entity.SysUser;
 import org.apache.ibatis.annotations.Param;
 
@@ -22,4 +24,9 @@ public interface SysUserMapper {
      * @return 是否插入成功
      */
     int insertUser(SysUser user);
+
+    /**
+     * 分页查询
+     */
+    IPage<SysUser> selectList(@Param("sysUserBO") SysUserBO sysUserBO, IPage<SysUser> page);
 }

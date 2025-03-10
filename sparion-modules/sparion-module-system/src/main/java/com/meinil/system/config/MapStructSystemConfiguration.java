@@ -1,6 +1,7 @@
 package com.meinil.system.config;
 
 import com.meinil.system.convert.SysMenuConvert;
+import com.meinil.system.convert.SysRoleConvert;
 import com.meinil.system.convert.SysUserConvert;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
@@ -22,5 +23,10 @@ public class MapStructSystemConfiguration {
     @Bean
     public SysMenuConvert sysMenuConvert() {
         return Mappers.getMapper(SysMenuConvert.class);
+    }
+
+    @Bean
+    public SysRoleConvert sysRoleConvert() {
+        return Mappers.getMapper(SysRoleConvert.class);
     }
 }

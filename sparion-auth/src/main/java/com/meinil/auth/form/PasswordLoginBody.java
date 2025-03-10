@@ -1,6 +1,7 @@
 package com.meinil.auth.form;
 
 import com.meinil.common.core.domain.LoginBody;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * @author Meinil
@@ -12,11 +13,13 @@ public class PasswordLoginBody extends LoginBody {
     /**
      * 用户名
      */
+    @NotBlank(message = "用户名不能为空")
     private String username;
 
     /**
      * 密码
      */
+    @NotBlank(message = "密码不能为空")
     private String password;
 
     public String getUsername() {

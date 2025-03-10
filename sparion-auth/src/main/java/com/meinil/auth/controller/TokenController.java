@@ -5,6 +5,7 @@ import com.meinil.auth.form.PasswordLoginBody;
 import com.meinil.auth.form.RegisterBody;
 import com.meinil.auth.service.IAuthLoginService;
 import com.meinil.common.core.domain.R;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,7 +33,7 @@ public class TokenController {
      * @return 登录信息
      */
     @PostMapping("/login")
-    public R<LoginVO> login(@RequestBody PasswordLoginBody loginBody) {
+    public R<LoginVO> login(@RequestBody @Validated PasswordLoginBody loginBody) {
         LoginVO login = authLoginService.login(loginBody);
         return R.ok(login);
     }

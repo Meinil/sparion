@@ -1,5 +1,7 @@
 package com.meinil.system.domain.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.List;
 
 /**
@@ -12,16 +14,18 @@ public class SysMenuVO {
     /**
      * id
      */
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
 
     /** 菜单名称 */
     private String menuName;
 
+    /** 父菜单ID */
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private Long parentId;
+
     /** 父菜单名称 */
     private String parentName;
-
-    /** 父菜单ID */
-    private Long parentId;
 
     /** 显示顺序 */
     private Integer orderNum;

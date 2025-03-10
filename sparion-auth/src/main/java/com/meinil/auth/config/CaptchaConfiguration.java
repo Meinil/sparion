@@ -20,10 +20,11 @@ public class CaptchaConfiguration {
         Properties properties = new Properties();
         properties.put("kaptcha.border", "no");
         properties.put("kaptcha.textproducer.font.color", "black");
-        properties.put("kaptcha.textproducer.char.space", "5");
+        properties.put("kaptcha.textproducer.char.space", "1");
         properties.put("kaptcha.textproducer.char.length", "4");
         properties.put("kaptcha.image.width", "120");
         properties.put("kaptcha.image.height", "40");
+        properties.put("kaptcha.textproducer.font.size", "30");
         properties.put("kaptcha.textproducer.font.names", "Arial, Courier");
 
         Config config = new Config(properties);

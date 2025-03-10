@@ -1,33 +1,31 @@
-package com.meinil.system.domain.entity;
+package com.meinil.system.domain.bo;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.meinil.common.mybatis.domain.BaseEntity;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+import java.util.List;
 
 /**
  * @author Meinil
- * @date 2025/2/27
- * @description 角色实体
+ * @date 2025/3/9
+ * @description
  */
-@TableName("sys_role")
-public class SysRole extends BaseEntity {
+public class SysRoleBO {
 
     /**
      * 角色编码
      */
+    @NotBlank(message = "角色编码不能为空")
     private String roleCode;
 
     /**
      * 角色名称
      */
+    @NotBlank(message = "角色名称不能为空")
     private String roleName;
 
     /**
-     * 角色状态（0正常 1停用）
-     */
-    private String status;
-
-    /**
-     * 角色排序
+     * 角色序号
      */
     private Integer roleSort;
 
@@ -41,28 +39,25 @@ public class SysRole extends BaseEntity {
      */
     private String canDel;
 
-    public String getRoleCode() {
+    /**
+     * 菜单权限
+     */
+    private List<Long> menuIds;
+
+    public @NotBlank String getRoleCode() {
         return roleCode;
     }
 
-    public void setRoleCode(String roleCode) {
+    public void setRoleCode(@NotBlank String roleCode) {
         this.roleCode = roleCode;
     }
 
-    public String getRoleName() {
+    public @NotBlank String getRoleName() {
         return roleName;
     }
 
-    public void setRoleName(String roleName) {
+    public void setRoleName(@NotBlank String roleName) {
         this.roleName = roleName;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public Integer getRoleSort() {
@@ -87,5 +82,13 @@ public class SysRole extends BaseEntity {
 
     public void setCanDel(String canDel) {
         this.canDel = canDel;
+    }
+
+    public List<Long> getMenuIds() {
+        return menuIds;
+    }
+
+    public void setMenuIds(List<Long> menuIds) {
+        this.menuIds = menuIds;
     }
 }

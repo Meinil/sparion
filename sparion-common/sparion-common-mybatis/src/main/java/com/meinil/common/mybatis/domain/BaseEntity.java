@@ -1,5 +1,10 @@
-package com.meinil.common.core.domain;
+package com.meinil.common.mybatis.domain;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
@@ -13,34 +18,42 @@ public class BaseEntity {
     /**
      * 主键id
      */
+    @TableId(type = IdType.ASSIGN_ID)
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
 
     /**
      * 创建者
      */
+    @TableField(fill = FieldFill.INSERT)
     private Long createBy;
 
     /**
      * 创建时间
      */
+    @TableField(fill = FieldFill.INSERT)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
     /**
      * 更新者
      */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updateBy;
 
     /**
      * 更新时间
      */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 
     /**
-     * 删除标志（0代表存在 1代表删除）
+     * 删除标志（0代表存在 非0代表删除）
      */
-    private String delFlag;
+    @TableLogic
+    @JsonFormat()
+    private Long delFlag;
 
     public Long getId() {
         return id;
@@ -82,11 +95,11 @@ public class BaseEntity {
         this.updateTime = updateTime;
     }
 
-    public String getDelFlag() {
+    public Long getDelFlag() {
         return delFlag;
     }
 
-    public void setDelFlag(String delFlag) {
+    public void setDelFlag(Long delFlag) {
         this.delFlag = delFlag;
     }
 }

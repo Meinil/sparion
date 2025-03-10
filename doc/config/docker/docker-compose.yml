@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.4.3
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    volumes:
+      - $HOME/data/mysql:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - sparion_network
+
+  redis:
+    image: redis:7.4.2
+    container_name: redis
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - $HOME/data/redis/data:/data
+      - $HOME/data/redis/redis.conf:/usr/local/etc/redis/redis.conf
+    ports:
+      - "6379:6379"
+    networks:
+      - sparion_network
+
+  nacos:
+    image: nacos/nacos-server:v2.4.3
+    container_name: nacos
+    hostname: nacos
+    environment:
+      MODE: standalone
+    ports:
+      - "8848:8848"
+      - "9848:9848"
+    networks:
+      - sparion_network
+
+networks:
+  sparion_network:
+    driver: bridge

@@ -1,13 +1,12 @@
 package com.meinil.common.mybatis;
 
-import com.meinil.common.mybatis.Interceptor.AutoFillInterceptor;
-import org.apache.ibatis.plugin.Interceptor;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionFactoryBean;
+import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import com.meinil.common.mybatis.handler.MyMetaObjectHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.sql.DataSource;
+import org.springframework.context.annotation.Import;
 
 /**
  * @author Meinil
@@ -15,18 +14,15 @@ import javax.sql.DataSource;
  * @description
  */
 @Configuration
+@Import({ MyMetaObjectHandler.class })
 public class SparionMybatisAutoConfiguration {
 
     @Bean
-    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
-        SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
-        factoryBean.setDataSource(dataSource);
-
-        // 添加自定义插件
-        Interceptor[] plugins = { new AutoFillInterceptor() };
-        factoryBean.setPlugins(plugins);
-
-        return factoryBean.getObject();
+    public MybatisPlusInterceptor mybatisPlusInterceptor() {
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        // 添加分页插件
+        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
+        return interceptor;
     }
 
 }

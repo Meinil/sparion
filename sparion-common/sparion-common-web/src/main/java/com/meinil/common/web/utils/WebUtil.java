@@ -5,6 +5,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+
 /**
  * @author Meinil
  * @date 2025/2/22
@@ -36,7 +40,8 @@ public class WebUtil {
      * @return 用户信息
      */
     public static LoginUser getLoginUser() {
-        return WebUtil.LOGIN_USER_THREAD_LOCAL.get();
+        LoginUser loginUser = WebUtil.LOGIN_USER_THREAD_LOCAL.get();
+        return Objects.isNull(loginUser) ? new LoginUser() : loginUser;
     }
 
     /**
@@ -53,6 +58,14 @@ public class WebUtil {
      */
     public static String getAccessToken() {
         return getLoginUser().getAccessToken();
+    }
+
+    /**
+     * 获取当前登录人的角色
+     * @return 角色集合
+     */
+    public static Set<String> getRoleCodes() {
+        return getLoginUser().getRoles();
     }
 
     /**

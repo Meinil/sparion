@@ -24,6 +24,20 @@
         SELECT <include refid="BaseField" /> FROM sys_user WHERE username = #{username}
     </select>
 
+    <select id="selectList" resultMap="SysUserResult">
+        SELECT
+            <include refid="BaseField" />
+        FROM
+            sys_user
+        WHERE
+            del_flag = '0'
+            <if test='sysUserBO.nickname != null and sysUserBO.nickname != ""'>
+                AND nickname LIKE CONCAT('%', #{sysUserBO.nickname}, '%')
+            </if>
+        ORDER BY
+            id DESC
+    </select>
+
     <insert id="insertUser">
         insert into sys_user(
             <if test="username != null and username != ''">username,</if>
