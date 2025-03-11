@@ -1,6 +1,7 @@
 package com.meinil.auth.controller;
 
 import com.meinil.auth.domain.vo.LoginVO;
+import com.meinil.auth.domain.vo.TokenVO;
 import com.meinil.auth.form.PasswordLoginBody;
 import com.meinil.auth.form.RegisterBody;
 import com.meinil.auth.service.IAuthLoginService;
@@ -57,5 +58,13 @@ public class TokenController {
         // 用户注册
         authLoginService.register(registerBody);
         return R.ok();
+    }
+
+    /**
+     * token刷新
+     */
+    @PostMapping("/refresh")
+    public R<TokenVO> refresh() {
+        return R.ok(authLoginService.refresh());
     }
 }

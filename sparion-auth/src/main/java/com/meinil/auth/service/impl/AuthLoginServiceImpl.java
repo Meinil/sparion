@@ -3,6 +3,7 @@ package com.meinil.auth.service.impl;
 import com.meinil.auth.constants.AuthConstants;
 import com.meinil.auth.convert.AuthLoginConvert;
 import com.meinil.auth.domain.vo.LoginVO;
+import com.meinil.auth.domain.vo.TokenVO;
 import com.meinil.auth.form.PasswordLoginBody;
 import com.meinil.auth.form.RegisterBody;
 import com.meinil.auth.properties.AccountProperties;
@@ -56,7 +57,7 @@ public class AuthLoginServiceImpl implements IAuthLoginService {
     public LoginVO login(PasswordLoginBody loginBody) {
         R<UserInfo> result = userFeignClient.getUserInfo(loginBody.getUsername());
         if (result.isFail()) {
-            throw new RuntimeException(result.getMsg());
+            throw new SparionException(result.getMsg());
         }
 
         UserInfo userInfo = result.getData();
@@ -80,17 +81,27 @@ public class AuthLoginServiceImpl implements IAuthLoginService {
             throw new SparionException("密码错误");
         }
 
-        // 3. 创建token
-        Map<String, Object> map = new HashMap<>() {{
-            put("userId", userInfo.getUserId());
-            put("username", userInfo.getUsername());
-        }};
-        String accessToken = JwtUtil.createToken(map);
-
-        // 4. 用户信息缓存到redis
         LoginUser loginUser = authLoginConvert.userInfoTologinUser(userInfo);
+
+        // 3. 创建accessToken
+        Map<String, Object> accessMap = new HashMap<>() {{
+            put(WebConstants.JWT_CLAIM_USER_ID, userInfo.getUserId());
+            put(WebConstants.JWT_CLAIM_USERNAME, userInfo.getUsername());
+        }};
+        String accessToken = JwtUtil.createToken(accessMap);
         loginUser.setAccessToken(accessToken);
         loginUser.setExpireIn(JwtUtil.getClaims(accessToken, WebConstants.JWT_CLAIM_EXP, Long.class));
+
+        // 4. 创建refreshToken
+        Map<String, Object> refreshMap = new HashMap<>() {{
+            put(WebConstants.JWT_CLAIM_USER_ID, userInfo.getUserId());
+            put(WebConstants.JWT_CLAIM_USERNAME, userInfo.getUsername());
+        }};
+        String refreshToken = JwtUtil.createRefreshToken(refreshMap);
+        loginUser.setRefreshToken(refreshToken);
+        loginUser.setRefreshExpireIn(JwtUtil.getRefreshClaims(refreshToken, WebConstants.JWT_CLAIM_EXP, Long.class));
+
+        // 5. 用户信息缓存到redis
         String key = String.format("%s%s", CacheConstants.LOGIN_USER_KEY, userInfo.getUserId());
         CacheUtil.setCacheObject(key, loginUser, jwtProperties.getExpirationTime(), TimeUnit.MINUTES);
 
@@ -99,7 +110,7 @@ public class AuthLoginServiceImpl implements IAuthLoginService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
+    @Transactional(rollbackFor = Exception.class)
     public void register(RegisterBody registerBody) {
         // 1. 校验验证码
         validCaptcha(registerBody.getUuid(), registerBody.getCode());
@@ -138,5 +149,37 @@ public class AuthLoginServiceImpl implements IAuthLoginService {
     public void logout() {
         String key = String.format("%s%s", CacheConstants.LOGIN_USER_KEY, WebUtil.getUserId());
         CacheUtil.deleteObject(key);
+    }
+
+    @Override
+    public TokenVO refresh() {
+
+        Long userId = JwtUtil.getRefreshClaims(WebUtil.getAccessToken(), WebConstants.JWT_CLAIM_USER_ID, Long.class);
+        String username = JwtUtil.getRefreshClaims(WebUtil.getAccessToken(), WebConstants.JWT_CLAIM_USERNAME, String.class);
+
+        // 1. 生成token
+        String token = JwtUtil.createToken(new HashMap<>(){{
+            put(WebConstants.JWT_CLAIM_USER_ID, userId);
+            put(WebConstants.JWT_CLAIM_USERNAME, username);
+        }});
+
+        TokenVO tokenVO = new TokenVO();
+        tokenVO.setAccessToken(token);
+        tokenVO.setExpireIn(JwtUtil.getClaims(token, WebConstants.JWT_CLAIM_EXP, Long.class));
+
+        // 2. 将新生成的token缓存至Redis
+        R<UserInfo> result = userFeignClient.getUserInfo(username);
+        if (result.isFail()) {
+            throw new SparionException(result.getMsg());
+        }
+        LoginUser loginUser = authLoginConvert.userInfoTologinUser(result.getData());
+        loginUser.setAccessToken(token);
+        loginUser.setExpireIn(tokenVO.getExpireIn());
+        loginUser.setRefreshToken(WebUtil.getAccessToken());
+        loginUser.setRefreshExpireIn(JwtUtil.getRefreshClaims(WebUtil.getAccessToken(), WebConstants.JWT_CLAIM_EXP, Long.class));
+        String key = String.format("%s%s", CacheConstants.LOGIN_USER_KEY, loginUser.getUserId());
+        CacheUtil.setCacheObject(key, loginUser, jwtProperties.getExpirationTime(), TimeUnit.MINUTES);
+
+        return tokenVO;
     }
 }

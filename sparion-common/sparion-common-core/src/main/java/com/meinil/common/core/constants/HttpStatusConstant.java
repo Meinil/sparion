@@ -1,13 +1,13 @@
-package com.meinil.common.core.constant;
+package com.meinil.common.core.constants;
 
 /**
  * 返回状态码
  *
  * @author Lion Li
  */
-public class HttpStatus {
+public class HttpStatusConstant {
     
-    private HttpStatus() {}
+    private HttpStatusConstant() {}
     
     /**
      * 操作成功

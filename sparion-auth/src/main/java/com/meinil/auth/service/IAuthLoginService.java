@@ -1,6 +1,7 @@
 package com.meinil.auth.service;
 
 import com.meinil.auth.domain.vo.LoginVO;
+import com.meinil.auth.domain.vo.TokenVO;
 import com.meinil.auth.form.PasswordLoginBody;
 import com.meinil.auth.form.RegisterBody;
 
@@ -28,4 +29,10 @@ public interface IAuthLoginService {
      * 登出
      */
     void logout();
+
+    /**
+     * token刷新
+     * @return 刷新后的accessToken
+     */
+    TokenVO refresh();
 }

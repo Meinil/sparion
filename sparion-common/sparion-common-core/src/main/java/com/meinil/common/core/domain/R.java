@@ -4,7 +4,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.meinil.common.core.constant.HttpStatus;
+import com.meinil.common.core.constants.HttpStatusConstant;
 
 /**
  * @author Meinil
@@ -86,7 +86,7 @@ public class R<T> implements Serializable {
      * @return 警告消息
      */
     public static <T> R<T> warn(String msg) {
-        return restResult(null, HttpStatus.WARN, msg);
+        return restResult(null, HttpStatusConstant.WARN, msg);
     }
 
     /**
@@ -97,7 +97,7 @@ public class R<T> implements Serializable {
      * @return 警告消息
      */
     public static <T> R<T> warn(String msg, T data) {
-        return restResult(data, HttpStatus.WARN, msg);
+        return restResult(data, HttpStatusConstant.WARN, msg);
     }
 
     private static <T> R<T> restResult(T data, int code, String msg) {

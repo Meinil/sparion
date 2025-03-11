@@ -1,11 +1,12 @@
 package com.meinil.common.web.utils;
 
 import com.meinil.common.core.domain.LoginUser;
+import com.meinil.common.core.utlis.StringUtil;
+import com.meinil.common.web.constants.WebConstants;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -53,11 +54,30 @@ public class WebUtil {
     }
 
     /**
+     * 获取当前登录的用户明
+     * @return 用户明
+     */
+    public static String getUsername() {
+        return getLoginUser().getUsername();
+    }
+
+    /**
      * 获取当前用户的授权令牌
      * @return 用户id
      */
     public static String getAccessToken() {
-        return getLoginUser().getAccessToken();
+        // 从用户信息中获取token
+        String accessToken = getLoginUser().getAccessToken();
+        if (StringUtil.isNotBlank(accessToken)) {
+            return accessToken;
+        }
+
+        // 从请求头中获取 Token
+        HttpServletRequest request = getRequest();
+        String token = request.getHeader(WebConstants.TOKEN_HEADER);
+
+        // 去掉 "Bearer " 前缀
+        return token.substring(7);
     }
 
     /**

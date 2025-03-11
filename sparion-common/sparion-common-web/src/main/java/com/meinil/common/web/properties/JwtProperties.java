@@ -16,14 +16,24 @@ public class JwtProperties {
     private String subject;
 
     /**
-     * 密钥
+     * accessToken 密钥
      */
     private String secretKey;
 
     /**
-     * token过期时间 单位: 分钟
+     * accessToken 过期时间 单位: 分钟
      */
     private Long expirationTime;
+
+    /**
+     * accessToken 密钥
+     */
+    private String refreshSecretKey;
+
+    /**
+     * refreshToken 过期时间 单位: 分钟
+     */
+    private Long refreshExpirationTime;
 
     public JwtProperties() {}
 
@@ -49,5 +59,21 @@ public class JwtProperties {
 
     public void setExpirationTime(Long expirationTime) {
         this.expirationTime = expirationTime;
+    }
+
+    public String getRefreshSecretKey() {
+        return refreshSecretKey;
+    }
+
+    public void setRefreshSecretKey(String refreshSecretKey) {
+        this.refreshSecretKey = refreshSecretKey;
+    }
+
+    public Long getRefreshExpirationTime() {
+        return refreshExpirationTime;
+    }
+
+    public void setRefreshExpirationTime(Long refreshExpirationTime) {
+        this.refreshExpirationTime = refreshExpirationTime;
     }
 }

@@ -39,7 +39,7 @@ public class JwtUtil {
     }
 
     /**
-     * 创建token
+     * 创建accessToken
      * @param claims claims
      * @return token
      */
@@ -49,7 +49,17 @@ public class JwtUtil {
     }
 
     /**
-     * 获取claims
+     * 创建refreshToken
+     * @param claims claims
+     * @return token
+     */
+    public static String createRefreshToken(Map<String, Object> claims) {
+        JwtProperties jwtProperties = SpringUtil.getBean(JwtProperties.class);
+        return createToken(claims, jwtProperties.getSubject(), jwtProperties.getRefreshExpirationTime(), jwtProperties.getRefreshSecretKey());
+    }
+
+    /**
+     * 获取accessToken claims
      * @param token token
      * @param key 获取claim的key
      * @param clazz claim的类型
@@ -60,6 +70,24 @@ public class JwtUtil {
 
         return Jwts.parser()
                 .verifyWith(Keys.hmacShaKeyFor(jwtProperties.getSecretKey().getBytes(StandardCharsets.UTF_8)))
+                .build()
+                .parseSignedClaims(token)
+                .getPayload()
+                .get(key, clazz);
+    }
+
+    /**
+     * 获取claims
+     * @param token token
+     * @param key 获取claim的key
+     * @param clazz claim的类型
+     * @return claim
+     */
+    public static <T> T getRefreshClaims(String token, String key, Class<T> clazz) {
+        JwtProperties jwtProperties = SpringUtil.getBean(JwtProperties.class);
+
+        return Jwts.parser()
+                .verifyWith(Keys.hmacShaKeyFor(jwtProperties.getRefreshSecretKey().getBytes(StandardCharsets.UTF_8)))
                 .build()
                 .parseSignedClaims(token)
                 .getPayload()

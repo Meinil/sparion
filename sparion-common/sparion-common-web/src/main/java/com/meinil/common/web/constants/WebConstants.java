@@ -20,6 +20,11 @@ public class WebConstants {
     public final static String JWT_CLAIM_USER_ID = "userId";
 
     /**
+     * jwt claims中保存的用户名 key
+     */
+    public final static String JWT_CLAIM_USERNAME = "username";
+
+    /**
      * jwt claims中保存的过期时间key
      */
     public final static String JWT_CLAIM_EXP = "exp";

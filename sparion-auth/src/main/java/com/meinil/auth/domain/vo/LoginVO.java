@@ -26,7 +26,7 @@ public class LoginVO {
     /**
      * 权限
      */
-    private List<String> menus;
+    private List<String> permissions;
 
     /**
      * 授权令牌
@@ -72,12 +72,12 @@ public class LoginVO {
         this.roles = roles;
     }
 
-    public List<String> getMenus() {
-        return menus;
+    public List<String> getPermissions() {
+        return permissions;
     }
 
-    public void setMenus(List<String> menus) {
-        this.menus = menus;
+    public void setPermissions(List<String> permissions) {
+        this.permissions = permissions;
     }
 
     public String getAccessToken() {
