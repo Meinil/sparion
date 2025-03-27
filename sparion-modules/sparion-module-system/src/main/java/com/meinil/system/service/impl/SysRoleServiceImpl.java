@@ -7,7 +7,7 @@ import com.meinil.common.mybatis.domain.PageQuery;
 import com.meinil.common.mybatis.domain.PageResult;
 import com.meinil.common.mybatis.utils.PageUtil;
 import com.meinil.common.web.exception.SparionException;
-import com.meinil.system.constants.SystemConstant;
+import com.meinil.common.web.constants.SystemConstant;
 import com.meinil.system.convert.SysRoleConvert;
 import com.meinil.system.domain.bo.SysRoleBO;
 import com.meinil.system.domain.bo.SysRoleEditBO;

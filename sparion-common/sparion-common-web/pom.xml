@@ -30,6 +30,12 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
+        <!--参数校验-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
         <!--jwt-->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
@@ -48,9 +54,10 @@
             <artifactId>sparion-common-cache</artifactId>
         </dependency>
 
+        <!--JSON-->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-validation</artifactId>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2-extension-spring6</artifactId>
         </dependency>
     </dependencies>
 

@@ -1,4 +1,4 @@
-package com.meinil.system.constants;
+package com.meinil.common.web.constants;
 
 /**
  * @author Meinil
@@ -32,4 +32,9 @@ public class SystemConstant {
      * 超级管理员角色
      */
     public final static String SUPER_ADMIN_ROLE = "super_admin";
+
+    /**
+     * 所有权限
+     */
+    public final static String SUPER_PERMISSION = "*:*:*";
 }

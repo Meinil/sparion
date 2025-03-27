@@ -18,7 +18,7 @@ public class SysMenuVO {
     private Long id;
 
     /** 菜单名称 */
-    private String menuName;
+    private String title;
 
     /** 父菜单ID */
     @JsonFormat(shape = JsonFormat.Shape.STRING)
@@ -48,7 +48,9 @@ public class SysMenuVO {
     /** 是否缓存（0缓存 1不缓存） */
     private String isCache;
 
-    /** 类型（M目录 C菜单 F按钮） */
+    /**
+     * 菜单类型（1-目录 2-菜单 3-按钮 4-接口）
+     */
     private String menuType;
 
     /** 显示状态（0显示 1隐藏） */
@@ -81,20 +83,12 @@ public class SysMenuVO {
         this.id = id;
     }
 
-    public String getMenuName() {
-        return menuName;
+    public String getTitle() {
+        return title;
     }
 
-    public void setMenuName(String menuName) {
-        this.menuName = menuName;
-    }
-
-    public String getParentName() {
-        return parentName;
-    }
-
-    public void setParentName(String parentName) {
-        this.parentName = parentName;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Long getParentId() {
@@ -103,6 +97,14 @@ public class SysMenuVO {
 
     public void setParentId(Long parentId) {
         this.parentId = parentId;
+    }
+
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
     }
 
     public Integer getOrderNum() {

@@ -14,7 +14,7 @@ import com.meinil.common.core.domain.LoginUser;
 import com.meinil.common.core.domain.R;
 import com.meinil.common.core.utlis.BCryptUtil;
 import com.meinil.common.core.utlis.StringUtil;
-import com.meinil.common.web.constants.WebConstants;
+import com.meinil.common.web.constants.WebConstant;
 import com.meinil.common.web.exception.SparionException;
 import com.meinil.common.web.properties.JwtProperties;
 import com.meinil.common.web.utils.JwtUtil;
@@ -74,7 +74,7 @@ public class AuthLoginServiceImpl implements IAuthLoginService {
             retryCount = 0;
         }
         if (retryCount > accountProperties.getMaxRetryCount()) {
-            throw new SparionException("此账号已超过最大重试次数, 请%s分钟后重试", accountProperties.getLockTime());
+            throw new SparionException("此账号已超过最大重试次数, 请%s分钟后重试", CacheUtil.getExpire(CacheConstants.PWD_ERR_CNT_KEY + userInfo.getUserId()) / 60);
         }
         if (!BCryptUtil.checkPassword(loginBody.getPassword(), userInfo.getPassword())) {
             CacheUtil.setCacheObject(CacheConstants.PWD_ERR_CNT_KEY + userInfo.getUserId(), retryCount + 1, accountProperties.getLockTime(), TimeUnit.MINUTES);
@@ -85,21 +85,21 @@ public class AuthLoginServiceImpl implements IAuthLoginService {
 
         // 3. 创建accessToken
         Map<String, Object> accessMap = new HashMap<>() {{
-            put(WebConstants.JWT_CLAIM_USER_ID, userInfo.getUserId());
-            put(WebConstants.JWT_CLAIM_USERNAME, userInfo.getUsername());
+            put(WebConstant.JWT_CLAIM_USER_ID, userInfo.getUserId());
+            put(WebConstant.JWT_CLAIM_USERNAME, userInfo.getUsername());
         }};
         String accessToken = JwtUtil.createToken(accessMap);
         loginUser.setAccessToken(accessToken);
-        loginUser.setExpireIn(JwtUtil.getClaims(accessToken, WebConstants.JWT_CLAIM_EXP, Long.class));
+        loginUser.setExpireIn(JwtUtil.getClaims(accessToken, WebConstant.JWT_CLAIM_EXP, Long.class));
 
         // 4. 创建refreshToken
         Map<String, Object> refreshMap = new HashMap<>() {{
-            put(WebConstants.JWT_CLAIM_USER_ID, userInfo.getUserId());
-            put(WebConstants.JWT_CLAIM_USERNAME, userInfo.getUsername());
+            put(WebConstant.JWT_CLAIM_USER_ID, userInfo.getUserId());
+            put(WebConstant.JWT_CLAIM_USERNAME, userInfo.getUsername());
         }};
         String refreshToken = JwtUtil.createRefreshToken(refreshMap);
         loginUser.setRefreshToken(refreshToken);
-        loginUser.setRefreshExpireIn(JwtUtil.getRefreshClaims(refreshToken, WebConstants.JWT_CLAIM_EXP, Long.class));
+        loginUser.setRefreshExpireIn(JwtUtil.getRefreshClaims(refreshToken, WebConstant.JWT_CLAIM_EXP, Long.class));
 
         // 5. 用户信息缓存到redis
         String key = String.format("%s%s", CacheConstants.LOGIN_USER_KEY, userInfo.getUserId());
@@ -153,19 +153,19 @@ public class AuthLoginServiceImpl implements IAuthLoginService {
 
     @Override
     public TokenVO refresh() {
-
-        Long userId = JwtUtil.getRefreshClaims(WebUtil.getAccessToken(), WebConstants.JWT_CLAIM_USER_ID, Long.class);
-        String username = JwtUtil.getRefreshClaims(WebUtil.getAccessToken(), WebConstants.JWT_CLAIM_USERNAME, String.class);
+        String refreshToken = WebUtil.getAccessToken();
+        Long userId = JwtUtil.getRefreshClaims(refreshToken, WebConstant.JWT_CLAIM_USER_ID, Long.class);
+        String username = JwtUtil.getRefreshClaims(refreshToken, WebConstant.JWT_CLAIM_USERNAME, String.class);
 
         // 1. 生成token
         String token = JwtUtil.createToken(new HashMap<>(){{
-            put(WebConstants.JWT_CLAIM_USER_ID, userId);
-            put(WebConstants.JWT_CLAIM_USERNAME, username);
+            put(WebConstant.JWT_CLAIM_USER_ID, userId);
+            put(WebConstant.JWT_CLAIM_USERNAME, username);
         }});
 
         TokenVO tokenVO = new TokenVO();
         tokenVO.setAccessToken(token);
-        tokenVO.setExpireIn(JwtUtil.getClaims(token, WebConstants.JWT_CLAIM_EXP, Long.class));
+        tokenVO.setExpireIn(JwtUtil.getClaims(token, WebConstant.JWT_CLAIM_EXP, Long.class));
 
         // 2. 将新生成的token缓存至Redis
         R<UserInfo> result = userFeignClient.getUserInfo(username);
@@ -175,10 +175,14 @@ public class AuthLoginServiceImpl implements IAuthLoginService {
         LoginUser loginUser = authLoginConvert.userInfoTologinUser(result.getData());
         loginUser.setAccessToken(token);
         loginUser.setExpireIn(tokenVO.getExpireIn());
-        loginUser.setRefreshToken(WebUtil.getAccessToken());
-        loginUser.setRefreshExpireIn(JwtUtil.getRefreshClaims(WebUtil.getAccessToken(), WebConstants.JWT_CLAIM_EXP, Long.class));
+        loginUser.setRefreshToken(refreshToken);
+        loginUser.setRefreshExpireIn(JwtUtil.getRefreshClaims(refreshToken, WebConstant.JWT_CLAIM_EXP, Long.class));
         String key = String.format("%s%s", CacheConstants.LOGIN_USER_KEY, loginUser.getUserId());
         CacheUtil.setCacheObject(key, loginUser, jwtProperties.getExpirationTime(), TimeUnit.MINUTES);
+
+        // 3. refreshToken
+        tokenVO.setRefreshToken(refreshToken);
+        tokenVO.setRefreshExpireIn(loginUser.getRefreshExpireIn());
 
         return tokenVO;
     }

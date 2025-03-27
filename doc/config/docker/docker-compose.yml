@@ -7,7 +7,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 123456
     volumes:
-      - $HOME/data/mysql:/var/lib/mysql
+      - ~/data/mysql:/var/lib/mysql
     ports:
       - "3306:3306"
     networks:
@@ -18,8 +18,8 @@ services:
     container_name: redis
     command: redis-server /usr/local/etc/redis/redis.conf
     volumes:
-      - $HOME/data/redis/data:/data
-      - $HOME/data/redis/redis.conf:/usr/local/etc/redis/redis.conf
+      - ~/data/redis/data:/data
+      - ~/data/redis/redis.conf:/usr/local/etc/redis/redis.conf
     ports:
       - "6379:6379"
     networks:
@@ -31,9 +31,30 @@ services:
     hostname: nacos
     environment:
       MODE: standalone
+    volumes:
+      - ~/data/nacos/application.properties:/home/nacos/conf/application.properties
     ports:
       - "8848:8848"
       - "9848:9848"
+    depends_on:
+      - mysql
+    links:
+      - mysql
+    networks:
+      - sparion_network
+
+  minio:
+    image: quay.io/minio/minio:latest
+    container_name: minio
+    environment:
+      - MINIO_ROOT_USER=minio
+      - MINIO_ROOT_PASSWORD=12345678
+    volumes:
+      - ~/data/minio/data:/data
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    command: server /data --console-address ":9001"
     networks:
       - sparion_network
 

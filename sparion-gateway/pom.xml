@@ -24,15 +24,15 @@
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.meinil</groupId>
-            <artifactId>sparion-common-nacos</artifactId>
-        </dependency>
-
         <!--负载均衡-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.meinil</groupId>
+            <artifactId>sparion-common-nacos</artifactId>
         </dependency>
     </dependencies>
 

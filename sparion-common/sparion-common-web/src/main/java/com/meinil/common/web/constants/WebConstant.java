@@ -5,9 +5,9 @@ package com.meinil.common.web.constants;
  * @date 2025/2/26
  * @description
  */
-public class WebConstants {
+public class WebConstant {
 
-    private WebConstants() {}
+    private WebConstant() {}
 
     /**
      * token保存的请求头
@@ -25,7 +25,7 @@ public class WebConstants {
     public final static String JWT_CLAIM_USERNAME = "username";
 
     /**
-     * jwt claims中保存的过期时间key
+     * jwt claims中保存的过期时间 key
      */
     public final static String JWT_CLAIM_EXP = "exp";
 }

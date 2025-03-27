@@ -4,7 +4,7 @@ import com.meinil.common.cache.constants.CacheConstants;
 import com.meinil.common.cache.utils.CacheUtil;
 import com.meinil.common.core.domain.LoginUser;
 import com.meinil.common.core.utlis.StringUtil;
-import com.meinil.common.web.constants.WebConstants;
+import com.meinil.common.web.constants.WebConstant;
 import com.meinil.common.web.exception.SparionException;
 import com.meinil.common.web.utils.JwtUtil;
 import com.meinil.common.web.utils.WebUtil;
@@ -27,7 +27,7 @@ public class TokenInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // 从请求头中获取 Token
-        String token = request.getHeader(WebConstants.TOKEN_HEADER);
+        String token = request.getHeader(WebConstant.TOKEN_HEADER);
         if (token == null || !token.startsWith("Bearer ")) {
             throw new SparionException("token不能为空");
         }
@@ -40,9 +40,9 @@ public class TokenInterceptor implements HandlerInterceptor {
             Long userId = null;
             // 从Redis中获取用户信息
             if (StringUtil.equals("/auth/refresh", request.getRequestURI())) {
-                userId = JwtUtil.getRefreshClaims(token, WebConstants.JWT_CLAIM_USER_ID, Long.class);
+                userId = JwtUtil.getRefreshClaims(token, WebConstant.JWT_CLAIM_USER_ID, Long.class);
             } else {
-                userId = JwtUtil.getClaims(token, WebConstants.JWT_CLAIM_USER_ID, Long.class);
+                userId = JwtUtil.getClaims(token, WebConstant.JWT_CLAIM_USER_ID, Long.class);
                 LoginUser loginUser = CacheUtil.getCacheObject(CacheConstants.LOGIN_USER_KEY + userId);
 
                 // 保存用户信息到请求属性中

@@ -1,5 +1,6 @@
 package com.meinil.common.feign.Interceptor;
 
+import com.meinil.common.web.utils.IpUtil;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,7 +21,10 @@ public class GlobalFeignInterceptor implements RequestInterceptor {
     private String allowHeaderValue;
 
     @Override
-    public void apply(RequestTemplate template) {
-        template.header(allowHeader, allowHeaderValue);
+    public void apply(RequestTemplate requestTemplate) {
+        requestTemplate.header(allowHeader, allowHeaderValue);
+
+        // 配置客户端IP
+        requestTemplate.header("X-Forwarded-For", IpUtil.getIpAddr());
     }
 }

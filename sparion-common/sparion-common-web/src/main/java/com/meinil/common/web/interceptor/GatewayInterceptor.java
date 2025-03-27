@@ -5,7 +5,6 @@ import com.meinil.common.web.properties.SecurityProperties;
 import com.meinil.common.web.utils.SpringUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 /**

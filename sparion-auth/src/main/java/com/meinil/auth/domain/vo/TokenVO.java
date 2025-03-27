@@ -17,6 +17,17 @@ public class TokenVO {
      */
     private Long expireIn;
 
+
+    /**
+     * 刷新令牌
+     */
+    private String refreshToken;
+
+    /**
+     * 刷新令牌 refresh_token 的有效期
+     */
+    private Long refreshExpireIn;
+
     public String getAccessToken() {
         return accessToken;
     }
@@ -31,5 +42,21 @@ public class TokenVO {
 
     public void setExpireIn(Long expireIn) {
         this.expireIn = expireIn;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
+    public Long getRefreshExpireIn() {
+        return refreshExpireIn;
+    }
+
+    public void setRefreshExpireIn(Long refreshExpireIn) {
+        this.refreshExpireIn = refreshExpireIn;
     }
 }

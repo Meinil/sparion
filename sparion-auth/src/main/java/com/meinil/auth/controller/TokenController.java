@@ -30,13 +30,11 @@ public class TokenController {
 
     /**
      * 登录
-     * @param loginBody 登录参数
-     * @return 登录信息
      */
     @PostMapping("/login")
     public R<LoginVO> login(@RequestBody @Validated PasswordLoginBody loginBody) {
         LoginVO login = authLoginService.login(loginBody);
-        return R.ok(login);
+        return R.data(login);
     }
 
     /**
@@ -50,8 +48,6 @@ public class TokenController {
 
     /**
      * 注册
-     * @param registerBody
-     * @return
      */
     @PostMapping("/register")
     public R<Void> register(@RequestBody RegisterBody registerBody) {
@@ -65,6 +61,6 @@ public class TokenController {
      */
     @PostMapping("/refresh")
     public R<TokenVO> refresh() {
-        return R.ok(authLoginService.refresh());
+        return R.data(authLoginService.refresh());
     }
 }

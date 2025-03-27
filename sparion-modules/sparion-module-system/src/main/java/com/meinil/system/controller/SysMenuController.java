@@ -33,6 +33,16 @@ public class SysMenuController {
     public R<List<SysMenuVO>> routers() {
         Long userId = WebUtil.getUserId();
         List<SysMenuVO> menus = menuService.selectMenuTreeByUserId(userId);
-        return R.ok(menus);
+        return R.data(menus);
+    }
+
+    /**
+     * 获取全部的菜单信息
+     * @return
+     */
+    @GetMapping("/menus")
+    public R<List<SysMenuVO>> menus() {
+        List<SysMenuVO> menus = menuService.menus();
+        return R.data(menus);
     }
 }

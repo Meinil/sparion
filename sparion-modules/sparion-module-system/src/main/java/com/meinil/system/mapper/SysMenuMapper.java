@@ -25,4 +25,10 @@ public interface SysMenuMapper {
      * @return
      */
     List<SysMenu> selectMenuTreeByUserId(Long userId);
+
+    /**
+     * 查询所有接口的权限
+     * @return
+     */
+    List<SysMenu> selectInterfaces();
 }

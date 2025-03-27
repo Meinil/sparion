@@ -1,12 +1,14 @@
 package com.meinil.common.web.utils;
 
 import com.meinil.common.core.domain.LoginUser;
+import com.meinil.common.core.utlis.CollectionUtil;
 import com.meinil.common.core.utlis.StringUtil;
-import com.meinil.common.web.constants.WebConstants;
+import com.meinil.common.web.constants.WebConstant;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 
@@ -74,7 +76,7 @@ public class WebUtil {
 
         // 从请求头中获取 Token
         HttpServletRequest request = getRequest();
-        String token = request.getHeader(WebConstants.TOKEN_HEADER);
+        String token = request.getHeader(WebConstant.TOKEN_HEADER);
 
         // 去掉 "Bearer " 前缀
         return token.substring(7);
@@ -89,11 +91,22 @@ public class WebUtil {
     }
 
     /**
+     * 获取当前登录人的权限
+     * @return 权限集合
+     */
+    public static Set<String> getPermissions() {
+        if (CollectionUtil.isNotEmpty(getLoginUser().getPermissions())) {
+            return getLoginUser().getPermissions();
+        }
+        return Collections.emptySet();
+    }
+
+    /**
      * 判断当前登录人是否是超级管理员
      * @return
      */
     public static boolean isSuperAdmin(Long userId) {
-        return userId.equals(1L);
+        return Objects.nonNull(userId) && userId.equals(1L);
     }
 
     /**

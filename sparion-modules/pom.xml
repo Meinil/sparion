@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>sparion-module-system</module>
+        <module>sparion-module-resource</module>
     </modules>
 
     <properties>

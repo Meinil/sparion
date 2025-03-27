@@ -25,8 +25,8 @@ public class SysUserController {
         this.userService = userService;
     }
 
-    @GetMapping
+    @GetMapping("/list")
     public R<PageResult<SysUserVO>> list(SysUserBO sysUserBO, PageQuery pageQuery) {
-        return R.ok(userService.list(sysUserBO, pageQuery));
+        return R.data(userService.list(sysUserBO, pageQuery));
     }
 }

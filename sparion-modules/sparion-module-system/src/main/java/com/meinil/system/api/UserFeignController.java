@@ -58,11 +58,11 @@ public class UserFeignController {
             throw new SparionException(e);
         }
 
-        return R.ok(userInfo);
+        return R.data(userInfo);
     }
 
     @PostMapping("/register")
     public R<Boolean> registerUserInfo(@RequestBody RegisterDTO registerDTO) {
-        return R.ok(userService.register(registerDTO));
+        return R.data(userService.register(registerDTO));
     }
 }

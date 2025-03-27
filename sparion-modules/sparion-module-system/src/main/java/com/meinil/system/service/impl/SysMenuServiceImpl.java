@@ -59,6 +59,18 @@ public class SysMenuServiceImpl implements ISysMenuService {
         return getChildPerms(sysMenuVOS, 0L);
     }
 
+    @Override
+    public List<SysMenuVO> menus() {
+        List<SysMenu> menus = baseMapper.selectMenuTreeAll();
+        return List.of();
+    }
+
+    @Override
+    public List<SysMenuVO> selectInterfaces() {
+        List<SysMenu> sysMenus = baseMapper.selectInterfaces();
+        return sysMenuConvert.sysMenuToSysMenuVO(sysMenus);
+    }
+
     /**
      * 根据父节点的ID获取所有子节点
      *

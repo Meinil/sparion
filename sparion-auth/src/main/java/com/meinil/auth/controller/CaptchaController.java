@@ -32,6 +32,6 @@ public class CaptchaController {
      */
     @GetMapping("/captcha")
     public R<CaptchaVO> captcha(@RequestParam(required = false, name = "uuid") String uuid) {
-        return R.ok(captchaService.captcha(uuid));
+        return R.data(captchaService.captcha(uuid));
     }
 }

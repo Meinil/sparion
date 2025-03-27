@@ -1,7 +1,7 @@
 package com.meinil.system.service.impl;
 
 import com.meinil.common.web.utils.WebUtil;
-import com.meinil.system.constants.SystemConstant;
+import com.meinil.common.web.constants.SystemConstant;
 import com.meinil.system.service.ISysMenuService;
 import com.meinil.system.service.ISysPermissionService;
 import com.meinil.system.service.ISysRoleService;
@@ -57,7 +57,7 @@ public class SysPermissionServiceImpl implements ISysPermissionService {
         Set<String> perms = new HashSet<>();
         // 管理员拥有所有权限
         if (WebUtil.isSuperAdmin(userId)) {
-            perms.add("*:*:*");
+            perms.add(SystemConstant.SUPER_PERMISSION);
         } else {
             perms.addAll(menuService.selectMenuPermsByUserId(userId));
         }

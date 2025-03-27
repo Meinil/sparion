@@ -1,5 +1,8 @@
 package com.meinil.auth.domain.vo;
 
+import com.alibaba.fastjson2.JSONWriter;
+import com.alibaba.fastjson2.annotation.JSONField;
+
 import java.util.List;
 
 /**
@@ -8,6 +11,13 @@ import java.util.List;
  * @description 登录返回信息
  */
 public class LoginVO {
+
+    /**
+     * 用户id
+     */
+    @JSONField(serializeFeatures = JSONWriter.Feature.WriteLongAsString)
+    private Long userId;
+
     /**
      * 用户名
      */
@@ -47,6 +57,14 @@ public class LoginVO {
      * 刷新令牌 refresh_token 的有效期
      */
     private Long refreshExpireIn;
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
     public String getUsername() {
         return username;

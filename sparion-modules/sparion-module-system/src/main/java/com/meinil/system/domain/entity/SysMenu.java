@@ -11,7 +11,7 @@ import com.meinil.common.mybatis.domain.BaseEntity;
 @TableName("sys_menu")
 public class SysMenu extends BaseEntity {
     /** 菜单名称 */
-    private String menuName;
+    private String title;
 
     /** 父菜单名称 */
     private String parentName;
@@ -34,13 +34,20 @@ public class SysMenu extends BaseEntity {
     /** 路由名称，默认和路由地址相同的驼峰格式（注意：因为vue3版本的router会删除名称相同路由，为避免名字的冲突，特殊情况可以自定义） */
     private String routeName;
 
+    /**
+     * 重定向的路由
+     */
+    private String redirect;
+
     /** 是否为外链（0是 1否） */
     private String isFrame;
 
     /** 是否缓存（0缓存 1不缓存） */
     private String isCache;
 
-    /** 类型（M目录 C菜单 F按钮） */
+    /**
+     * 菜单类型（1-目录 2-菜单 3-按钮 4-接口）
+     */
     private String menuType;
 
     /** 显示状态（0显示 1隐藏） */
@@ -60,12 +67,12 @@ public class SysMenu extends BaseEntity {
      */
     private String remark;
 
-    public String getMenuName() {
-        return menuName;
+    public String getTitle() {
+        return title;
     }
 
-    public void setMenuName(String menuName) {
-        this.menuName = menuName;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getParentName() {
@@ -122,6 +129,14 @@ public class SysMenu extends BaseEntity {
 
     public void setRouteName(String routeName) {
         this.routeName = routeName;
+    }
+
+    public String getRedirect() {
+        return redirect;
+    }
+
+    public void setRedirect(String redirect) {
+        this.redirect = redirect;
     }
 
     public String getIsFrame() {

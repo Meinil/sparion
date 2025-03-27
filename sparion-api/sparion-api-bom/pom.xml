@@ -25,6 +25,36 @@
                 <artifactId>sparion-api-system-feign</artifactId>
                 <version>${revision}</version>
             </dependency>
+            <dependency>
+                <groupId>com.meinil</groupId>
+                <artifactId>sparion-api-client</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.meinil</groupId>
+                <artifactId>sparion-api-client-feign</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.meinil</groupId>
+                <artifactId>sparion-api-server</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.meinil</groupId>
+                <artifactId>sparion-api-server-feign</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.meinil</groupId>
+                <artifactId>sparion-api-resource</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.meinil</groupId>
+                <artifactId>sparion-api-resource-feign</artifactId>
+                <version>${revision}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

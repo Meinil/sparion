@@ -37,7 +37,7 @@ public class SysRoleController {
      */
     @GetMapping("/list")
     public R<PageResult<SysRoleVO>> list(SysRoleBO sysRoleBO, PageQuery pageQuery) {
-        return R.ok(roleService.list(sysRoleBO, pageQuery));
+        return R.data(roleService.list(sysRoleBO, pageQuery));
     }
 
     /**
@@ -46,7 +46,7 @@ public class SysRoleController {
     @PostMapping
     public R<String> add(@RequestBody @Validated SysRoleBO sysRoleBO) {
         Long roleId = roleService.add(sysRoleBO);
-        return R.ok(String.valueOf(roleId));
+        return R.data(String.valueOf(roleId));
     }
 
     /**
@@ -54,7 +54,7 @@ public class SysRoleController {
      */
     @PutMapping
     public R<Integer> edit(@Validated @RequestBody SysRoleEditBO roleEdit) {;
-        return R.ok(roleService.edit(roleEdit));
+        return R.data(roleService.edit(roleEdit));
     }
 
     /**
@@ -62,6 +62,6 @@ public class SysRoleController {
      */
     @DeleteMapping("/{roleIds}")
     public R<Integer> remove(@PathVariable(name = "roleIds") Long[] roleIds) {
-        return R.ok(roleService.remove(roleIds));
+        return R.data(roleService.remove(roleIds));
     }
 }

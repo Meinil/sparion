@@ -16,6 +16,12 @@
         <module>sparion-api-bom</module>
         <module>sparion-api-system</module>
         <module>sparion-api-system-feign</module>
+        <module>sparion-api-client</module>
+        <module>sparion-api-client-feign</module>
+        <module>sparion-api-server</module>
+        <module>sparion-api-server-feign</module>
+        <module>sparion-api-resource</module>
+        <module>sparion-api-resource-feign</module>
     </modules>
 
     <properties>

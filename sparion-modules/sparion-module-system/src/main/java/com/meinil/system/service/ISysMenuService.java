@@ -24,4 +24,16 @@ public interface ISysMenuService {
      * @return
      */
     List<SysMenuVO> selectMenuTreeByUserId(Long userId);
+
+    /**
+     * 获取全部的菜单
+     * @return
+     */
+    List<SysMenuVO> menus();
+
+    /**
+     * 查询所有接口的权限
+     * @return
+     */
+    List<SysMenuVO> selectInterfaces();
 }
