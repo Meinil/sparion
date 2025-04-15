@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: sparion-module-ai
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+      username: nacos
+      password: nacos
+  config:
+    import: nacos:sparion-common.properties,nacos:sparion-redis.properties,nacos:sparion-module-ai.properties
+server:
+  port: 15000
+
+langchain4j:
+  ollama:
+    streaming-chat-model:
+      base-url: http://localhost:11434
+      model-name: qwen2.5:0.5b
+    chat-model:
+      base-url: http://localhost:11434
+      api-key: test
+      model-name: qwen2.5:0.5b

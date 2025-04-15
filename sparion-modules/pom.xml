@@ -14,6 +14,7 @@
     <modules>
         <module>sparion-module-system</module>
         <module>sparion-module-resource</module>
+        <module>sparion-module-ai</module>
     </modules>
 
     <properties>
