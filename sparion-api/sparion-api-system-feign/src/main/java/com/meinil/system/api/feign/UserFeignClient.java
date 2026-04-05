@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @date 2025/2/23
  * @description
  */
-@FeignClient(name = "${sparion.applications.sparion-module-system}")
+@FeignClient(name = "${sparion.application.sparion-module-system}")
 public interface UserFeignClient {
     /**
      * 根据用户名获取用户信息

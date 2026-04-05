@@ -18,6 +18,8 @@
         <module>sparion-api-system-feign</module>
         <module>sparion-api-client</module>
         <module>sparion-api-client-feign</module>
+        <module>sparion-api-product</module>
+        <module>sparion-api-product-feign</module>
         <module>sparion-api-server</module>
         <module>sparion-api-server-feign</module>
         <module>sparion-api-resource</module>

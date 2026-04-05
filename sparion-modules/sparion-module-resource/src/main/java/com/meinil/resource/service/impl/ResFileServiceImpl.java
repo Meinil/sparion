@@ -1,11 +1,12 @@
 package com.meinil.resource.service.impl;
 
 import com.meinil.common.core.utlis.DateUtil;
-import com.meinil.common.core.utlis.StringUtil;
 import com.meinil.common.web.enums.FileStorageModelEnum;
 import com.meinil.common.web.enums.FileStorageTypeEnum;
 import com.meinil.common.web.exception.SparionException;
+import com.meinil.resource.convert.ResFileConvert;
 import com.meinil.resource.domain.entity.ResFile;
+import com.meinil.resource.domain.vo.ResFileVO;
 import com.meinil.resource.mapper.ResFileMapper;
 import com.meinil.resource.service.IFileStorageService;
 import com.meinil.resource.service.IResFileService;
@@ -22,7 +23,13 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.Objects;
 
 /**
@@ -37,10 +44,13 @@ public class ResFileServiceImpl implements IResFileService {
 
     private final ResFileMapper baseMapper;
 
+    private final ResFileConvert resFileConvert;
+
     private final Map<String, IFileStorageService> storageServices;
 
-    public ResFileServiceImpl(ResFileMapper baseMapper, Map<String, IFileStorageService> storageServices) {
+    public ResFileServiceImpl(ResFileMapper baseMapper, ResFileConvert resFileConvert, Map<String, IFileStorageService> storageServices) {
         this.baseMapper = baseMapper;
+        this.resFileConvert = resFileConvert;
         this.storageServices = storageServices;
     }
 
@@ -91,25 +101,41 @@ public class ResFileServiceImpl implements IResFileService {
         }
     }
 
-    /**
-     * 获取文件对象
-     * @param file 文件流
-     */
-    private ResFile getResFile(MultipartFile file, String storageModel) {
-        return getResFile(file, storageModel, "");
+    @Override
+    public List<ResFileVO> listByIds(List<Long> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        List<ResFile> files = baseMapper.selectBatchIds(ids);
+        if (files == null || files.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        Map<Long, ResFile> fileMap = files.stream()
+                .filter(Objects::nonNull)
+                .filter(file -> Objects.nonNull(file.getId()))
+                .collect(Collectors.toMap(ResFile::getId, Function.identity(), (left, right) -> left, LinkedHashMap::new));
+
+        List<ResFileVO> result = new ArrayList<>(ids.size());
+        for (Long id : ids) {
+            ResFile file = fileMap.get(id);
+            if (file != null) {
+                result.add(resFileConvert.resFileToResFileVO(file));
+            }
+        }
+        return result;
     }
 
     /**
      * 获取文件名称
      * @param file 文件流
-     * @param fileName 文件名称
+     * @param storageModel 存储方式
      */
-    private ResFile getResFile(MultipartFile file, String storageModel, String fileName) {
+    private ResFile getResFile(MultipartFile file, String storageModel) {
         ResFile resFile = new ResFile();
-        resFile.setFileName(StringUtil.isBlank(fileName) ? file.getOriginalFilename() : fileName);
-        resFile.setOriginalName(file.getOriginalFilename());
+        resFile.setFileName(file.getOriginalFilename());
         resFile.setFileSuffix(file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.') + 1));
-        resFile.setPath(DateUtil.format(LocalDateTime.now(), "yyyy/MM/dd/") + file.getOriginalFilename());
         resFile.setStorageModel(storageModel);
 
         // 设置文件hash值
@@ -126,6 +152,7 @@ public class ResFileServiceImpl implements IResFileService {
                 sb.append(String.format("%02x", b));
             }
             resFile.setHash(sb.toString());
+            resFile.setPath(DateUtil.format(LocalDateTime.now(), "yyyy/MM/dd/") + resFile.getHash() + "." + resFile.getFileSuffix());
         } catch (Exception e) {
             throw new SparionException(e);
         }
@@ -133,6 +160,11 @@ public class ResFileServiceImpl implements IResFileService {
         return resFile;
     }
 
+    /**
+     * 获取存储方式
+     * @param storageModel 存储方式枚举
+     * @return
+     */
     private IFileStorageService getStorageService(FileStorageModelEnum storageModel) {
         return storageServices.get(storageModel.getBeanName());
     }

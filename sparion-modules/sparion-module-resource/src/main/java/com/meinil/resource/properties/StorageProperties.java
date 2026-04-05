@@ -1,6 +1,5 @@
 package com.meinil.resource.properties;
 
-import com.meinil.resource.service.IFileStorageService;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**

@@ -31,6 +31,8 @@ sparion
 ├── sparion-modules         // 业务模块
 │       └── sparion-module-system                       // 系统服务 [13000]
 │       └── sparion-module-resource                     // 资源服务 [14000]
+│       └── sparion-module-ai                           // 资源服务 [15000]
+│       └── sparion-module-product                      // 资源服务 [16000]
 ├── sparion-external        // 外部模块
 │       └── sparion-external-client                      // 调用外部服务 [15000]
 │       └── sparion-external-server                      // 外部服务回调 [16000]

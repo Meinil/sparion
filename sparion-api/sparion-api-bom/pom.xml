@@ -37,6 +37,16 @@
             </dependency>
             <dependency>
                 <groupId>com.meinil</groupId>
+                <artifactId>sparion-api-product</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.meinil</groupId>
+                <artifactId>sparion-api-product-feign</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.meinil</groupId>
                 <artifactId>sparion-api-server</artifactId>
                 <version>${revision}</version>
             </dependency>

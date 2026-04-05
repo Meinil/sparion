@@ -6,7 +6,6 @@
     <resultMap type="com.meinil.resource.domain.entity.ResFile" id="ResFileResult">
         <id     property="id"                 column="id"                    />
         <result property="fileName"           column="file_name"             />
-        <result property="originalName"       column="original_name"         />
         <result property="fileSuffix"         column="file_suffix"           />
         <result property="path"               column="path"                  />
         <result property="storageType"        column="storage_type"          />
@@ -19,7 +18,7 @@
         <result property="updateTime"         column="update_time"           />
     </resultMap>
 
-    <sql id="BaseField">id, file_name, original_name, file_suffix, path, storage_type, hash, file_size, del_flag, create_by, create_time, update_by, update_time</sql>
+    <sql id="BaseField">id, file_name, file_suffix, path, storage_type, hash, file_size, del_flag, create_by, create_time, update_by, update_time</sql>
 
     <select id="selectByHash" resultMap="ResFileResult">
         SELECT <include refid="BaseField" /> FROM res_file WHERE hash = #{hash} AND del_flag = 0

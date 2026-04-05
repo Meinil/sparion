@@ -24,7 +24,6 @@ DROP TABLE IF EXISTS `res_file`;
 CREATE TABLE `res_file` (
   `id` bigint NOT NULL COMMENT '主键',
   `file_name` varchar(128) DEFAULT NULL COMMENT '文件名称',
-  `original_name` varchar(128) DEFAULT NULL COMMENT '文件原始名称',
   `file_suffix` varchar(8) DEFAULT NULL COMMENT '文件后缀名',
   `path` varchar(255) DEFAULT NULL COMMENT '文件存储路径',
   `storage_type` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '存储类型 1-永久 2-临时',

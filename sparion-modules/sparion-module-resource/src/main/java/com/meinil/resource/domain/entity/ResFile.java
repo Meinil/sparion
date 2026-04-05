@@ -17,11 +17,6 @@ public class ResFile extends BaseEntity {
     private String fileName;
 
     /**
-     * 原始文件名
-     */
-    private String originalName;
-
-    /**
      * 文件后缀名
      */
     private String fileSuffix;
@@ -57,14 +52,6 @@ public class ResFile extends BaseEntity {
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
-    }
-
-    public String getOriginalName() {
-        return originalName;
-    }
-
-    public void setOriginalName(String originalName) {
-        this.originalName = originalName;
     }
 
     public String getFileSuffix() {

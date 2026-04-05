@@ -4,6 +4,8 @@ import com.meinil.common.core.domain.R;
 import com.meinil.common.web.constants.FileConstant;
 import com.meinil.common.web.enums.FileStorageModelEnum;
 import com.meinil.common.web.enums.FileStorageTypeEnum;
+import com.meinil.common.web.exception.SparionException;
+import com.meinil.resource.domain.vo.ResFileVO;
 import com.meinil.resource.service.IResFileService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Meinil
@@ -46,5 +52,28 @@ public class ResFileController {
     @GetMapping("/download/{fileId}")
     public void download(@PathVariable(name = "fileId") Long fileId, HttpServletResponse response) {
         resFileService.download(fileId, response);
+    }
+
+    /**
+     * 根据id集合查询文件元数据
+     */
+    @GetMapping("/listByIds")
+    public R<List<ResFileVO>> listByIds(@RequestParam(name = "ids", required = false) String ids) {
+        return R.data(resFileService.listByIds(parseIds(ids)));
+    }
+
+    private List<Long> parseIds(String ids) {
+        if (ids == null || ids.isBlank()) {
+            return Collections.emptyList();
+        }
+        try {
+            return Arrays.stream(ids.split(","))
+                    .map(String::trim)
+                    .filter(id -> !id.isEmpty())
+                    .map(Long::valueOf)
+                    .toList();
+        } catch (NumberFormatException e) {
+            throw new SparionException("文件id格式错误");
+        }
     }
 }
