@@ -60,24 +60,34 @@ sparion
    doc/config/docker/docker-compose.yml
    ```
 
-2. 在mysql里导入如下文件夹里的所有sql
-
-   ```shell
-   doc/config/sql
-   ```
-
-4. 启动如下微服务(必须)
+2. 启动如下微服务(必须)
 
    ```
-   必须
+   必须启动
    sparion-gateway
    sparion-auth
    sparion-module-system
    
    可选
+   sparion-module-resource                     
+   sparion-module-ai
+   sparion-module-product
+   sparion-external-client
+   sparion-external-server
    ```
+
+3. 各环境账户密码
+
+   | 服务          | 账户/密码      | 访问地址                    |
+   | ------------- | -------------- | --------------------------- |
+   | 前端界面      | admin/admin123 | http://127.0.0.1            |
+   | 数据库        | root/123456    | 127.0.0.1:3306              |
+   | nacos         | nacos/nacos    | http://127.0.0.1:8848/nacos |
+   | redis         | 123456         | http://127.0.0.1:6379       |
+   | minio(控制台) | minio/12345678 | http://127.0.0.1:9000       |
 
 ### 参考
 
 - [RuoYi-Cloud](https://github.com/yangzongzhuan/RuoYi-Cloud)
 - [RuoYi-Cloud-Plus](https://github.com/dromara/RuoYi-Cloud-Plus)
+- [navie-ui-admin](https://github.com/jekip/naive-ui-admin)

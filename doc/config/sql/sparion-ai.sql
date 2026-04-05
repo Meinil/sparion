@@ -1,5 +1,9 @@
 SET FOREIGN_KEY_CHECKS = 0;
 SET NAMES utf8mb4;
+CREATE DATABASE IF NOT EXISTS `sparion-ai`
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+USE `sparion-ai`;
 -- ai_chat DDL
 CREATE TABLE `ai_chat` (`id` BIGINT NOT NULL Comment "主键",
 `create_by` BIGINT NULL Comment "创建者",
