@@ -1,6 +1,6 @@
 spring:
   application:
-    name: sparion-external-client
+    name: ${sparion.application.sparion-external-client}
   cloud:
     nacos:
       server-addr: 127.0.0.1:8848

@@ -1,6 +1,4 @@
 spring:
-  application:
-    name: sparion-module-ai
   cloud:
     nacos:
       server-addr: 127.0.0.1:8848
@@ -8,8 +6,6 @@ spring:
       password: nacos
   config:
     import: nacos:sparion-common.properties,nacos:sparion-redis.properties,nacos:sparion-module-ai.properties
-server:
-  port: 15000
 
 langchain4j:
   ollama:

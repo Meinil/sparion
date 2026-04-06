@@ -60,6 +60,8 @@ sparion
    doc/config/docker/docker-compose.yml
    ```
 
+   容器启动完成后，进入minio控制台创建两个存储桶`sparion.permanent`和`sparion.temp`，另外创建访问密钥填入nacos的`sparion-module-resource.properties`
+
 2. 启动如下微服务(必须)
 
    ```
@@ -78,13 +80,14 @@ sparion
 
 3. 各环境账户密码
 
-   | 服务          | 账户/密码      | 访问地址                    |
-   | ------------- | -------------- | --------------------------- |
-   | 前端界面      | admin/admin123 | http://127.0.0.1            |
+   | 服务         | 账户/密码      | 访问地址                        |
+   |------------| -------------- |-----------------------------|
+   | 前端界面       | admin/admin123 | http://127.0.0.1            |
    | 数据库        | root/123456    | 127.0.0.1:3306              |
-   | nacos         | nacos/nacos    | http://127.0.0.1:8848/nacos |
-   | redis         | 123456         | http://127.0.0.1:6379       |
+   | nacos      | nacos/nacos    | http://127.0.0.1:8848/nacos |
+   | redis      | 123456         | http://127.0.0.1:6379       |
    | minio(控制台) | minio/12345678 | http://127.0.0.1:9000       |
+   | onlyoffice |  | http://127.0.0.1:8080       |
 
 ### 参考
 

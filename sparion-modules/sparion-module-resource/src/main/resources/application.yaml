@@ -1,6 +1,4 @@
 spring:
-  application:
-    name: sparion-module-resource
   cloud:
     nacos:
       server-addr: 127.0.0.1:8848
@@ -8,5 +6,3 @@ spring:
       password: nacos
   config:
     import: nacos:sparion-common.properties,nacos:sparion-redis.properties,nacos:sparion-module-resource.properties
-server:
-  port: 14000
